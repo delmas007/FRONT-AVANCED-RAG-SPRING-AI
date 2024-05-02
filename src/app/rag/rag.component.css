@@ -1,0 +1,32 @@
+.container {
+  padding: 20px;
+}
+
+.card {
+  border-radius: 10px; /* Coins arrondis */
+}
+
+.card-header {
+  background-color: #f8f9fa; /* Couleur de fond légère */
+  border-bottom: 1px solid #ddd; /* Bordure */
+}
+
+.card-body {
+  padding: 20px; /* Espace intérieur */
+}
+
+.input-group {
+  padding: 10px; /* Espace autour du champ d'entrée */
+}
+
+.alert {
+  border-radius: 5px; /* Coins arrondis pour l'alerte */
+}
+
+.list-group-item {
+  border-radius: 5px; /* Coins arrondis pour les éléments de liste */
+}
+
+.shadow-lg {
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15); /* Ombre pour effet 3D */
+}
