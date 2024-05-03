@@ -12,7 +12,9 @@ export class ApiService {
   constructor(private http: HttpClient) {}
 
   envoyerFichiersWord(formData: FormData): Observable<any> {
-    console.log(formData)// La méthode accepte FormData
+    // formData.forEach((value, key) => {
+    //   console.log(`Key: ${key}, Value: ${value}`); // Affichez les paires clé-valeur
+    // });
     return this.http.post<any>(`${this.host}/fichier/word`,formData); // Envoyer avec POST
   }
 
@@ -26,12 +28,12 @@ export class ApiService {
   }
 
   envoyerFichiersPowerPoint(fichiers: File[]): Observable<any> {
-    const formData = new FormData();
+    const files = new FormData();
     fichiers.forEach((fichier, index) => {
-      formData.append(`powerpoint_${index}`, fichier);
+      files.append(`powerpoint_${index}`, fichier);
     });
 
-    return this.http.post<any>(`${this.host}/fichier/powerpoint`, formData);
+    return this.http.post<any>(`${this.host}/fichier/powerpoint`, files);
   }
 
   envoyerFichiersPDF(fichiers: File[]): Observable<any> {

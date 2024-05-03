@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import {DomSanitizer, SafeUrl} from "@angular/platform-browser";
 import {DecimalPipe, NgClass, NgForOf, NgIf} from "@angular/common";
 import {RouterLink} from "@angular/router";
 import {ApiService} from "../service/api.service";
@@ -102,24 +101,20 @@ export class RagComponent {
   envoyerFichiers() {
     if (this.files && this.files.length > 0) {
       const formData = new FormData();
-      this.files.forEach((file, index) => {
-        // Assurez-vous d'ajouter chaque fichier sous un nom d'entrée unique si nécessaire
-        formData.append('files[]', file); // Utilisez 'files[]' pour indiquer un tableau de fichiers
-        console.log('Fichier ajouté:', file.name);
-        console.log('formData', formData);
+      this.files.forEach((file) => {
+        formData.append('files', file);
+      });
+      this.apiService.envoyerFichiersWord(formData).subscribe({
+        next: (response) => {
+          console.log('Réponse:', response); // Traitez la réponse
+        },
+        error: (error) => {
+          console.error('Erreur:', error); // Affichez l'erreur
+        },
       });
     }
-
-
-    // this.apiService.envoyerFichiersWord(formData).subscribe({
-      //   next: (response) => {
-      //     console.log('Réponse:', response);
-      //   },
-      //   error: (error) => {
-      //     console.error('Erreur:', error); // Gérer les erreurs
-      //   },
-      // });
-
   }
+
+
 
 }
