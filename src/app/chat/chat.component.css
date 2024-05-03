@@ -1,0 +1,10 @@
+textarea {
+  /* Permettre les retours à la ligne automatiques */
+  white-space: normal;
+  overflow-x: hidden; /* Éviter les barres de défilement horizontales */
+}
+
+.container {
+  max-width: 1000px; /* Centrer le contenu */
+  margin: auto;
+}

@@ -1,1 +1,36 @@
-<p>chat works!</p>
+
+<div class="container mt-4">
+  <div class="form-group">
+    <label for="question">Question:</label>
+    <textarea
+      (input)="adjustTextarea($event)"
+      [(ngModel)]="question"
+      class="form-control"
+      id="question"
+      placeholder="Tapez votre question ici"
+      style="resize: none; overflow: hidden;"
+
+    ></textarea>
+  </div>
+
+  <button
+    class="btn btn-primary mt-3"
+    [disabled]="!isButtonEnabled()"
+    (click)="submitQuestion()"
+  >
+    Envoyer
+  </button>
+
+  <div *ngIf="showResponse" class="mt-4 mb-4">
+    <label for="response">Réponse:</label>
+    <textarea
+      class="form-control"
+      id="response"
+      [(ngModel)]="response"
+      readonly
+      style="resize: none; overflow: hidden;"
+      #responseTextarea
+    ></textarea>
+  </div>
+</div>
+
