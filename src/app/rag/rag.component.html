@@ -1,3 +1,18 @@
+<nav class="p-3 navbar justify-content-center align-content-center mt-5 " >
+  <ul class="nav nav-pills ">
+    <li *ngFor="let action of actions">
+      <button
+        (click)="setCurrentAction(action)"
+        [class]="action == currentAction ? 'btn btn-primary ms-1' : 'btn btn-outline-primary ms-1'"
+      >
+        {{action.nom}}
+        <i class="bi {{action.icon}}"></i>
+      </button>
+    </li>
+  </ul>
+</nav>
+
+
 <div class="container d-flex justify-content-center align-items-center" style="min-height: 40vh;">
   <div class="card shadow-lg" style="width: 50rem;">
     <div class="card-header text-center">
@@ -9,23 +24,27 @@
         <div class="input-group">
           <div class="custom-file">
             <input
+              [disabled]="!currentAction"
               type="file"
               class="custom-file-input"
               id="fileInput"
               (change)="onFileChange($event)"
               multiple
-              accept=".pdf, .pptx, .xlsx, .docx"
+              [attr.accept]="currentAction.type"
             >
             <label class="custom-file-label" for="fileInput">
               {{ inputLabel }}
+
+
             </label>
+            {{ currentAction.type }}
           </div>
         </div>
           <div class="text-center mt-4">
             <button
               class="btn btn-primary"
               [disabled]="files.length === 0"
-
+              (click)="envoyerFichiers()"
             >
               Continuer
             </button>
