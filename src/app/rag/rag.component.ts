@@ -117,16 +117,4 @@ export class RagComponent {
     }
 
   }
-  envoyerQuestion(question:String){
-    if (question) {
-      this.apiService.question(question).subscribe({
-        next: (response) => {
-
-        },
-        error: (error) => {
-          console.error('Erreur:', error); // Affichez l'erreur
-        },
-      });
-    }
-  }
 }

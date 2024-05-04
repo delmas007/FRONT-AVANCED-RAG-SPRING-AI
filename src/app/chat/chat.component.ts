@@ -32,11 +32,13 @@ export class ChatComponent  {
 
   submitQuestion(): void {
     this.envoyerQuestion(this.question);
-    this.showResponse = true;
 
-    setTimeout(() => {
-      this.adjustTextarea(this.responseTextarea.nativeElement);
-    }, 0); // Un petit délai pour s'assurer que le DOM est à jour
+    // this.showResponse = true;
+    //
+    // setTimeout(() => {
+    //   this.adjustTextarea(this.responseTextarea.nativeElement);
+    // }, 0); // Un petit délai pour s'assurer que le DOM est à jour
+
   }
 
   adjustTextarea(textarea: HTMLTextAreaElement | Event): void {
@@ -45,16 +47,31 @@ export class ChatComponent  {
     textElement.style.height = `${textElement.scrollHeight}px`; // Ajuster la hauteur à celle du contenu
   }
 
-  envoyerQuestion(question:String){
-      this.apiService.question(question).subscribe({
-        next: (response) => {
-          console.log(response)
-          this.response = response;
-
-        },
-        error: (error) => {
-          console.error('Erreur:', error); // Affichez l'erreur
-        },
+  // envoyerQuestion(question:String){
+  //     this.apiService.question(question)
+  //       .then(reponse => {
+  //         this.response = reponse.result;
+  //         this.showResponse = true;
+  //         setTimeout(() => {
+  //           this.adjustTextarea(this.responseTextarea.nativeElement);
+  //         }, 0); // Un petit délai pour s'assurer que le DOM est à jour
+  //       })
+  //       .catch(err => {
+  //         console.log(err)
+  //       });
+  // }
+  envoyerQuestion(question: string) {
+    this.apiService.question(question)
+      .then(reponse => {
+        this.response = reponse.result; // Accédez à la propriété 'result' du JSON
+        this.showResponse = true;
+        setTimeout(() => {
+          this.adjustTextarea(this.responseTextarea.nativeElement);
+        }, 0);
+      })
+      .catch(err => {
+        console.error(err);
       });
   }
+
 }
