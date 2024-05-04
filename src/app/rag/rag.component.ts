@@ -104,9 +104,24 @@ export class RagComponent {
       this.files.forEach((file) => {
         formData.append('files', file);
       });
-      this.apiService.envoyerFichiersWord(formData).subscribe({
+      this.apiService.envoyerFichiers(formData,this.currentAction.type).subscribe({
         next: (response) => {
-          console.log('Réponse:', response); // Traitez la réponse
+          console.log('Réponse:', response);
+          formData.delete('files');
+          // Traitez la réponse
+        },
+        error: (error) => {
+          console.error('Erreur:', error); // Affichez l'erreur
+        },
+      });
+    }
+
+  }
+  envoyerQuestion(question:String){
+    if (question) {
+      this.apiService.question(question).subscribe({
+        next: (response) => {
+
         },
         error: (error) => {
           console.error('Erreur:', error); // Affichez l'erreur
@@ -114,7 +129,4 @@ export class RagComponent {
       });
     }
   }
-
-
-
 }

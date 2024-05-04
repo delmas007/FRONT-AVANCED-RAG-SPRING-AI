@@ -1,6 +1,7 @@
 import {AfterViewInit, Component, ElementRef, ViewChild} from '@angular/core';
 import {FormsModule} from "@angular/forms";
 import {NgIf, NgStyle} from "@angular/common";
+import {ApiService} from "../service/api.service";
 
 @Component({
   selector: 'app-chat',
@@ -19,6 +20,10 @@ export class ChatComponent  {
   response: string = '';
   showResponse: boolean = false;
 
+  constructor(private apiService: ApiService) {
+
+  }
+
   @ViewChild('responseTextarea', { static: false }) responseTextarea!: ElementRef;
 
   isButtonEnabled(): boolean {
@@ -26,7 +31,7 @@ export class ChatComponent  {
   }
 
   submitQuestion(): void {
-    this.response = `Voici la réponse à votre question: ${this.question}`;
+    this.envoyerQuestion(this.question);
     this.showResponse = true;
 
     setTimeout(() => {
@@ -38,5 +43,18 @@ export class ChatComponent  {
     const textElement: HTMLTextAreaElement = (textarea instanceof Event) ? (<HTMLTextAreaElement>textarea.target) : textarea;
     textElement.style.height = 'auto'; // Réinitialiser la hauteur
     textElement.style.height = `${textElement.scrollHeight}px`; // Ajuster la hauteur à celle du contenu
+  }
+
+  envoyerQuestion(question:String){
+      this.apiService.question(question).subscribe({
+        next: (response) => {
+          console.log(response)
+          this.response = response;
+
+        },
+        error: (error) => {
+          console.error('Erreur:', error); // Affichez l'erreur
+        },
+      });
   }
 }

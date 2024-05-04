@@ -11,37 +11,12 @@ export class ApiService {
 
   constructor(private http: HttpClient) {}
 
-  envoyerFichiersWord(formData: FormData): Observable<any> {
-    // formData.forEach((value, key) => {
-    //   console.log(`Key: ${key}, Value: ${value}`); // Affichez les paires clé-valeur
-    // });
-    return this.http.post<any>(`${this.host}/fichier/word`,formData); // Envoyer avec POST
+  envoyerFichiers(formData: FormData,extension:String): Observable<any> {
+    return this.http.post<any>(`${this.host}/fichier/${extension}`,formData);
   }
 
-  envoyerFichiersExcel(fichiers: File[]): Observable<any> {
-    const formData = new FormData();
-    fichiers.forEach((fichier, index) => {
-      formData.append(`excel_${index}`, fichier);
-    });
-
-    return this.http.post<any>(`${this.host}/fichier/excel`, formData);
+  question(question: String): Observable<any> {
+    return this.http.get<any>(`${this.host}/rag/?query=${question}`);
   }
 
-  envoyerFichiersPowerPoint(fichiers: File[]): Observable<any> {
-    const files = new FormData();
-    fichiers.forEach((fichier, index) => {
-      files.append(`powerpoint_${index}`, fichier);
-    });
-
-    return this.http.post<any>(`${this.host}/fichier/powerpoint`, files);
-  }
-
-  envoyerFichiersPDF(fichiers: File[]): Observable<any> {
-    const formData = new FormData();
-    fichiers.forEach((fichier, index) => {
-      formData.append(`pdf_${index}`, fichier);
-    });
-
-    return this.http.post<any>(`${this.host}/fichier/pdf`, formData);
-  }
 }
