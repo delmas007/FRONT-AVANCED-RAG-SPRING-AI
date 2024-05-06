@@ -1,5 +1,5 @@
 
-<div class="container mt-4">
+<div *ngIf="this.apiService.Affquestion" class="container mt-4">
   <div class="form-group">
     <label for="question">Question:</label>
 
@@ -13,25 +13,49 @@
 
     ></textarea>
   </div>
+  <div class="d-flex align-items-center mt-3">
+    <!-- Bouton d'envoi -->
+    <button
+      class="btn btn-primary"
+      [disabled]="!isButtonEnabled()"
+      (click)="submitQuestion()"
+    >
+      Envoyer
+    </button>
+    <!-- Loader (icône de chargement) -->
+    <div class="loader ms-5" *ngIf="loader"></div> <!-- Espace entre le bouton et le loader -->
+  </div>
 
-  <button
-    class="btn btn-primary mt-3"
-    [disabled]="!isButtonEnabled()"
-    (click)="submitQuestion()"
-  >
-    Envoyer
-  </button>
+
 
   <div *ngIf="showResponse" class="mt-4 mb-4">
-    <label for="response">Réponse:</label>
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+      <label for="response" style="margin: 0;">Réponse:</label>
+      <!-- Icône dynamique pour le bouton de copie -->
+      <i
+        *ngIf="!copySuccess"
+        (click)="copyToClipboard()"
+        class="bi bi-clipboard"
+        style="cursor: pointer; color: #303030;">
+      </i>
+      <!-- Icône de confirmation (apparaît après clic) -->
+      <i
+        *ngIf="copySuccess"
+        class="bi bi-check-circle"
+        style="color: #0D6EFD; transition: opacity 0.5s;">
+      </i>
+    </div>
     <textarea
-      class="form-control"
+      class="form-control response-textarea"
       id="response"
       [(ngModel)]="response"
       readonly
-      style="resize: none; overflow: hidden;"
       #responseTextarea
     ></textarea>
   </div>
+
+
+
+
 </div>
 

@@ -6,6 +6,7 @@ import {firstValueFrom, Observable} from "rxjs";
   providedIn: 'root'
 })
 export class ApiService {
+  Affquestion: boolean = false;
 
   private host = 'http://localhost:7788';
 

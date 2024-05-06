@@ -1,13 +1,7 @@
-import { Component } from '@angular/core';
+import {Component, inject, Injector} from '@angular/core';
 import {DecimalPipe, NgClass, NgForOf, NgIf} from "@angular/common";
 import {RouterLink} from "@angular/router";
 import {ApiService} from "../service/api.service";
-
-interface FileDetail {
-  name: string;
-  sizeMB: number;
-  originalFile: File;
-}
 
 @Component({
   selector: 'app-rag',
@@ -26,6 +20,9 @@ export class RagComponent {
   files: File[] = [];
   invalidFiles: File[] = [];
   inputLabel = 'Choisir des fichiers';
+  loader: boolean = false;
+  currentAction : any='';
+
   actions : Array<any> = [
     { nom : 'pdf' , type : '.pdf' , icon :'bi bi-file-pdf-fill',nav : 'nav-link'},
     { nom : 'powerpoint' , type : '.pptx' , icon :'bi bi-file-earmark-slides-fill',nav : 'nav-link'},
@@ -35,12 +32,6 @@ export class RagComponent {
   constructor(private apiService: ApiService) {
 
   }
-
-  currentAction : any='';
-
-
-
-
   setCurrentAction (action : any){
     this.currentAction=action;
   }
@@ -99,6 +90,7 @@ export class RagComponent {
     return 'bi bi-file-earmark';
   }
   envoyerFichiers() {
+    this.loader = true;
     if (this.files && this.files.length > 0) {
       const formData = new FormData();
       this.files.forEach((file) => {
@@ -108,10 +100,12 @@ export class RagComponent {
         next: (response) => {
           console.log('Réponse:', response);
           formData.delete('files');
-          // Traitez la réponse
+          this.loader = false;
+          this.apiService.Affquestion = true;
         },
         error: (error) => {
           console.error('Erreur:', error); // Affichez l'erreur
+          this.loader = false;
         },
       });
     }
