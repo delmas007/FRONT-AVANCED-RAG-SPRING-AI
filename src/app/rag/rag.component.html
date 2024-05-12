@@ -13,75 +13,61 @@
   </ul>
 </nav>
 
-
-<div class="container d-flex justify-content-center align-items-center" style="min-height: 40vh;">
-  <div class="card shadow-lg" style="width: 50rem;">
-    <div class="card-header text-center" style="background-color: #0D6EFD; color: #FFFFFF">
-      <h3 class="card-title">Téléchargement de Fichiers</h3>
+<div class="container my-5">
+  <div class="card shadow-lg">
+    <div class="card-header bg-primary text-white">
+      <h3 class="card-title m-0">Téléchargement de Fichiers</h3>
     </div>
     <div class="card-body">
-      <div class="form-group">
-        <label for="fileInput" class="form-label">Choisissez le/les fichier(s) au format sélectionné:</label>
-        <div class="input-group">
-          <div class="custom-file">
-            <input
-              [disabled]="!currentAction"
-              type="file"
-              class="custom-file-input"
-              id="fileInput"
-              (change)="onFileChange($event)"
-              multiple
-              [attr.accept]="currentAction.type"
-            >
-            <label class="custom-file-label" for="fileInput">
-              {{ inputLabel }}
-
-
-            </label>
-            {{ currentAction.type }}
-          </div>
+      <form>
+        <div class="mb-3">
+          <label for="fileInput" class="form-label">Choisissez le/les fichier(s) au format sélectionné :</label>
+          <input
+            [disabled]="!currentAction"
+            type="file"
+            class="form-control"
+            id="fileInput"
+            (change)="onFileChange($event)"
+            multiple
+            [attr.accept]="currentAction.type"
+          >
         </div>
-          <div class="text-center mt-4">
-            <button
-              class="btn btn-primary"
-              [disabled]="files.length === 0 || loader===true"
-              (click)="envoyerFichiers()"
-            >
-              Continuer
-            </button>
-          </div>
 
+        <div class="text-center">
+          <button
+            class="btn btn-primary"
+            [disabled]="files.length === 0 || loader"
+            (click)="envoyerFichiers()"
+          >
+            {{ loader ? 'Chargement...' : 'Continuer' }}
+          </button>
+        </div>
 
-      </div>
+        <div *ngIf="invalidFiles.length > 0" class="alert alert-danger mt-3" role="alert">
+          <strong>Erreur !</strong> Certains fichiers ont des extensions non autorisées :
+          <ul>
+            <li *ngFor="let file of invalidFiles">{{ file.name }}</li>
+          </ul>
+        </div>
 
-      <!-- Alerte Bootstrap -->
-      <div *ngIf="invalidFiles.length > 0" class="alert alert-danger mt-3">
-        <strong>Erreur!</strong> Les fichiers suivants ont des extensions non autorisées :
-        <ul>
-          <li *ngFor="let file of invalidFiles">{{ file.name }}</li>
-        </ul>
-      </div>
-
-      <div *ngIf="files.length > 0" class="mt-3">
-        <ul class="list-group">
-          <li *ngFor="let file of files; let i = index" class="list-group-item d-flex justify-content-between align-items-center">
-              <span class="d-flex align-items-center flex-grow-1" style="overflow: hidden;">
-                <i [ngClass]="getIconClass(file.name)" class="me-2"></i>
+        <div *ngIf="files.length > 0" class="mt-3">
+          <ul class="list-group">
+            <li *ngFor="let file of files; let i = index" class="list-group-item d-flex justify-content-between align-items-center">
+              <div class="d-flex align-items-center flex-grow-1">
+                <i [ngClass]="getIconClass(file.name)" class="bi me-2"></i>
                 <span class="text-truncate">{{ file.name }}</span>
                 <span class="ms-2">- {{ fileSizeInMb(file.size) }} Mb</span>
-              </span>
-            <button
-              class="btn btn-danger btn-sm"
-              (click)="removeFile(i)"
-            >
-              <i class="bi bi-x-circle"></i>
-            </button>
-          </li>
-        </ul>
-    </div>
-      <div class="text-center" *ngIf="loader">
-        <div class="lds-ellipsis " style="color: #0D6EFD"><div></div><div></div><div></div><div></div></div>
-      </div>
+              </div>
+              <button class="btn btn-danger btn-sm" (click)="removeFile(i)">
+                <i class="bi bi-x-circle"></i>
+              </button>
+            </li>
+          </ul>
+        </div>
+        <div class="text-center" *ngIf="loader">
+          <div class="lds-ellipsis " style="color: #0D6EFD"><div></div><div></div><div></div><div></div></div>
+        </div>
+      </form>
     </div>
   </div>
 </div>
