@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpParams} from "@angular/common/http";
 import {firstValueFrom, Observable} from "rxjs";
 import {Utilisateur} from "../Model/utilisateur";
+import {jwtDecode} from "jwt-decode";
+import {StateService} from "./state.service";
 
 @Injectable({
   providedIn: 'root'
@@ -49,4 +51,5 @@ export class ApiService {
       this.http.post<Utilisateur>(`${this.host}/inscription`, donnee)
     );
   }
+
 }
