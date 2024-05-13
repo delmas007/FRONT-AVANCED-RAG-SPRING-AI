@@ -44,9 +44,9 @@ export class ApiService {
     );
   }
 
-  async registration(donnee:Utilisateur): Promise<any> {
+  async registration(donnee : Utilisateur): Promise<any> {
     return await firstValueFrom(
-      this.http.post<Utilisateur>(`${this.host}inscription?role=USER`, donnee)
+      this.http.post<Utilisateur>(`${this.host}/inscription`, donnee)
     );
   }
 }

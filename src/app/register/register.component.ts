@@ -35,14 +35,13 @@ export class RegisterComponent implements OnInit{
       username: this.fb.control(""),
       password: this.fb.control(""),
       confirmePassword: this.fb.control(""),
-      email: this.fb.control([Validators.required, Validators.email]),
+      email: this.fb.control("",[Validators.required, Validators.email]),
       nom: this.fb.control(""),
       prenom: this.fb.control(""),
-      // email: ['', [Validators.required, Validators.email]],
     });
   }
 
-  handleLogin() {
+  handRegister() {
     let confirmePassword = this.formLogin.value.confirmePassword;
     this.donnee.username = this.formLogin.value.username;
     this.donnee.password = this.formLogin.value.password;
@@ -54,7 +53,7 @@ export class RegisterComponent implements OnInit{
       this.apiService.registration(this.donnee)
         .then((response : any) => {
           console.log(response)
-          this.router.navigateByUrl("/Login")
+          this.router.navigateByUrl("/login")
         })
         .catch(err => {
           console.log(err)
@@ -63,9 +62,6 @@ export class RegisterComponent implements OnInit{
     }else {
       console.log('Les mots de passe ne sont pas identiques')
     }
-
-  }
-  handRegister() {
 
   }
 }
