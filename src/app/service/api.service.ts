@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpParams} from "@angular/common/http";
 import {firstValueFrom, Observable} from "rxjs";
+import {Utilisateur} from "../Model/utilisateur";
 
 @Injectable({
   providedIn: 'root'
@@ -43,6 +44,9 @@ export class ApiService {
     );
   }
 
-
-
+  async registration(donnee:Utilisateur): Promise<any> {
+    return await firstValueFrom(
+      this.http.post<Utilisateur>(`${this.host}inscription?role=USER`, donnee)
+    );
+  }
 }
