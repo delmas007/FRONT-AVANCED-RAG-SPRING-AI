@@ -48,11 +48,9 @@ export class RegisterComponent implements OnInit{
     this.donnee.email = this.formLogin.value.email;
     this.donnee.nom = this.formLogin.value.nom;
     this.donnee.prenom = this.formLogin.value.prenom;
-    console.log('donnee = '+this.donnee)
     if (this.donnee.password === confirmePassword) {
       this.apiService.registration(this.donnee)
         .then((response : any) => {
-          console.log(response)
           this.router.navigateByUrl("/login")
         })
         .catch(err => {

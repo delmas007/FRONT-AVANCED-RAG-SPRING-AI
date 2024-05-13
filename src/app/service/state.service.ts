@@ -28,7 +28,7 @@ export class StateService {
         username: decodedJwt.sub,
         name: decodedJwt.name,
         prenom: decodedJwt.prenom,
-        role: decodedJwt.roles,
+        role: decodedJwt.scope,
         token: token
       };
     }
