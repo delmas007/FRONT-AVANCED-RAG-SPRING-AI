@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpParams} from "@angular/common/http";
 import {firstValueFrom, Observable} from "rxjs";
 
 @Injectable({
@@ -35,11 +35,14 @@ export class ApiService {
     );
   }
 
-  async Login(username: string, password: string) {
+  async Login(username: string, password: string): Promise<any> {
+    const body = { username: username, password: password };
+
     return await firstValueFrom(
-      this.http.get<any>(`${this.host}connexion?username=${username}&password=${password})`)
+      this.http.post<any>(`${this.host}/connexion`, body)
     );
   }
+
 
 
 }
