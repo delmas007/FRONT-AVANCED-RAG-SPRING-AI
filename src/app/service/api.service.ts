@@ -30,8 +30,14 @@ export class ApiService {
   async question(question: string) {
     return await firstValueFrom(
       this.http.get<any>(`${this.host}/rag/?query=${encodeURIComponent(question)}`, {
-        responseType: 'json', // Cela indique à Angular de traiter la réponse comme du JSON
+        responseType: 'json',
       })
+    );
+  }
+
+  async Login(username: string, password: string) {
+    return await firstValueFrom(
+      this.http.get<any>(`${this.host}connexion?username=${username}&password=${password})`)
     );
   }
 
