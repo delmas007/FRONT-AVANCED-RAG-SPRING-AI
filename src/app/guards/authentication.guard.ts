@@ -18,10 +18,10 @@ export class AuthenticationGuard {
       if (this.state.authState.role == "ADMIN" || this.state.authState.role == "USER") {
         return true;
       }
-      this.router.navigateByUrl("/login");
+      this.router.navigateByUrl("/connexion");
       return false;
     } else {
-      this.router.navigateByUrl("/login");
+      this.router.navigateByUrl("/connexion");
       return false;
     }
   }

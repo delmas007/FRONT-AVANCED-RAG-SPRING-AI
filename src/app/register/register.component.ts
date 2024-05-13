@@ -51,7 +51,7 @@ export class RegisterComponent implements OnInit{
     if (this.donnee.password === confirmePassword) {
       this.apiService.registration(this.donnee)
         .then((response : any) => {
-          this.router.navigateByUrl("/login")
+          this.router.navigateByUrl("/connexion")
         })
         .catch(err => {
           console.log(err)
