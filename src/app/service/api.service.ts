@@ -14,10 +14,15 @@ export class ApiService {
   private host = 'http://localhost:7788';
 
   constructor(private http: HttpClient) {}
-
-  envoyerFichiers(formData: FormData,extension:String): Observable<any> {
-    return this.http.post<any>(`${this.host}/fichier/${extension}`,formData);
+   id = 'dda5dec1-39f5-4344-a962-dc2e7a63e546'
+  // envoyerFichiers(formData: FormData,extension:String,user:Utilisateur): Observable<any> {
+  //   return this.http.post<any>(`${this.host}/fichier/${extension}/${user}`,formData);
+  // }
+  envoyerFichiers(formData: FormData,extension:String, user: Utilisateur): Observable<any> {
+    formData.append('user', new Blob([JSON.stringify(user)], { type: 'application/json' }));
+    return this.http.post<any>(`${this.host}/fichier/${extension}`, formData);
   }
+
 
   // async question(question: String){
   //   return await firstValueFrom(this.http.get<any>(`${this.host}/rag/?query=${question}`));

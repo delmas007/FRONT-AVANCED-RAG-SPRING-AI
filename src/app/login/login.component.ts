@@ -1,13 +1,14 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, ReactiveFormsModule} from "@angular/forms";
 import {ApiService} from "../service/api.service";
-import {Router} from "@angular/router";
+import {Router, RouterLink} from "@angular/router";
 
 @Component({
   selector: 'app-login',
   standalone: true,
   imports: [
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    RouterLink
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'

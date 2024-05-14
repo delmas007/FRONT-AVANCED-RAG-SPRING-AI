@@ -2,6 +2,7 @@ import {Component, inject, Injector} from '@angular/core';
 import {DecimalPipe, NgClass, NgForOf, NgIf} from "@angular/common";
 import {RouterLink} from "@angular/router";
 import {ApiService} from "../service/api.service";
+import {Utilisateur} from "../Model/utilisateur";
 
 @Component({
   selector: 'app-rag',
@@ -96,7 +97,8 @@ export class RagComponent {
       this.files.forEach((file) => {
         formData.append('files', file);
       });
-      this.apiService.envoyerFichiers(formData,this.currentAction.type).subscribe({
+      let  user :Utilisateur = {id :'dda5dec1-39f5-4344-a962-dc2e7a63e546',username:'',password:'',nom:'',prenom:'',email:''}
+      this.apiService.envoyerFichiers(formData,this.currentAction.type,user).subscribe({
         next: (response) => {
           console.log('Réponse:', response);
           formData.delete('files');

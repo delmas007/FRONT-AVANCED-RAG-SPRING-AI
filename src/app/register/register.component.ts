@@ -1,16 +1,17 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {ApiService} from "../service/api.service";
-import {Router} from "@angular/router";
+import {Router, RouterLink} from "@angular/router";
 import {Utilisateur} from "../Model/utilisateur";
 
 @Component({
   selector: 'app-register',
   standalone: true,
-    imports: [
-        FormsModule,
-        ReactiveFormsModule
-    ],
+  imports: [
+    FormsModule,
+    ReactiveFormsModule,
+    RouterLink
+  ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
 })
@@ -19,6 +20,7 @@ export class RegisterComponent implements OnInit{
   formLogin!: FormGroup;
   errorMessage: undefined;
   donnee: Utilisateur = {
+    id: "",
     username: "",
     password: "",
     email: "",

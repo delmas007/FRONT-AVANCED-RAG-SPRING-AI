@@ -15,5 +15,5 @@ export const routes: Routes = [
       { path : "rag" , component : RagComponent,canActivate:[AuthorizationGuard]},
     ]},
 
-  { path : "" , redirectTo : "/login", pathMatch : "full"}
+  { path : "" , redirectTo : "/connexion", pathMatch : "full"}
 ];

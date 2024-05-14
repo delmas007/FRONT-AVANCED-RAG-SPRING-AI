@@ -60,7 +60,7 @@ export class ChatComponent  {
     this.loader = true;
     this.apiService.question(question)
       .then(reponse => {
-        this.response = reponse.result; // Accédez à la propriété 'result' du JSON
+        this.response = reponse.result;
         this.showResponse = true;
         setTimeout(() => {
           this.adjustTextarea(this.responseTextarea.nativeElement);
