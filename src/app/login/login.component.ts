@@ -36,7 +36,6 @@ export class LoginComponent implements OnInit{
     this.apiService.Login(username, password)
       .then((token : any) => {
         localStorage.setItem('token', token.accessToken);
-        console.log(token)
         this.router.navigateByUrl("/user/rag")
       })
       .catch(err => {

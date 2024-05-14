@@ -13,7 +13,6 @@ export class AuthenticationGuard {
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-    console.log(this.state.authState.role);
     if (this.state.authState.isAuthenticated ) {
       if (this.state.authState.role == "ADMIN" || this.state.authState.role == "USER") {
         return true;

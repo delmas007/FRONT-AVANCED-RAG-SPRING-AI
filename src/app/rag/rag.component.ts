@@ -3,6 +3,7 @@ import {DecimalPipe, NgClass, NgForOf, NgIf} from "@angular/common";
 import {RouterLink} from "@angular/router";
 import {ApiService} from "../service/api.service";
 import {Utilisateur} from "../Model/utilisateur";
+import {StateService} from "../service/state.service";
 
 @Component({
   selector: 'app-rag',
@@ -30,7 +31,7 @@ export class RagComponent {
     { nom : 'excel' , type : '.xlsx' , icon :'bi bi-file-earmark-spreadsheet-fill',nav : 'nav-link'},
     { nom : 'word' , type : '.docx' , icon :'bi bi-file-earmark-word-fill',nav : 'nav-link'}
   ]
-  constructor(private apiService: ApiService) {
+  constructor(private apiService: ApiService,private state: StateService) {
 
   }
   setCurrentAction (action : any){
@@ -97,10 +98,9 @@ export class RagComponent {
       this.files.forEach((file) => {
         formData.append('files', file);
       });
-      let  user :Utilisateur = {id :'dda5dec1-39f5-4344-a962-dc2e7a63e546',username:'',password:'',nom:'',prenom:'',email:''}
+      let  user :Utilisateur = {id :this.state.authState.id,username:'',password:'',nom:'',prenom:'',email:''}
       this.apiService.envoyerFichiers(formData,this.currentAction.type,user).subscribe({
         next: (response) => {
-          console.log('Réponse:', response);
           formData.delete('files');
           this.loader = false;
           this.apiService.Affquestion = true;

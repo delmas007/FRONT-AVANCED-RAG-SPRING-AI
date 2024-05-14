@@ -7,6 +7,7 @@ import {jwtDecode} from "jwt-decode";
 export class StateService {
 
   public authState : any = {
+    id : undefined,
     isAuthenticated : false,
     username : undefined,
     role : undefined,
@@ -28,6 +29,7 @@ export class StateService {
         username: decodedJwt.sub,
         name: decodedJwt.name,
         prenom: decodedJwt.prenom,
+        id: decodedJwt.id,
         role: decodedJwt.scope,
         token: token
       };
