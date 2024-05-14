@@ -35,9 +35,9 @@ export class ApiService {
   //     })
   //   );
   // }
-  async question(question: string) {
+  async question(question: string, user: Utilisateur) {
     return await firstValueFrom(
-      this.http.get<any>(`${this.host}/rag/?query=${encodeURIComponent(question)}`, {
+      this.http.post<any>(`${this.host}/rag/?query=${encodeURIComponent(question)}`,user, {
         responseType: 'json',
       })
     );

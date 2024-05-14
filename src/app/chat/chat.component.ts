@@ -3,6 +3,8 @@ import {FormsModule} from "@angular/forms";
 import {NgIf, NgStyle} from "@angular/common";
 import {ApiService} from "../service/api.service";
 import {RagComponent} from "../rag/rag.component";
+import {Utilisateur} from "../Model/utilisateur";
+import {StateService} from "../service/state.service";
 
 @Component({
   selector: 'app-chat',
@@ -24,7 +26,7 @@ export class ChatComponent  {
   loader: boolean = false;
   copySuccess: boolean = false;
 
-  constructor(public apiService: ApiService,) {
+  constructor(public apiService: ApiService,private state: StateService) {
 
   }
   @ViewChild('responseTextarea') responseTextarea!: ElementRef;
@@ -56,9 +58,10 @@ export class ChatComponent  {
     textElement.style.height = `${textElement.scrollHeight}px`; // Ajuster la hauteur à celle du contenu
   }
   envoyerQuestion(question: string) {
+    let  user :Utilisateur = {id :this.state.authState.id,username:'',password:'',nom:'',prenom:'',email:''}
     this.message = true;
     this.loader = true;
-    this.apiService.question(question)
+    this.apiService.question(question,user)
       .then(reponse => {
         this.response = reponse.result;
         this.showResponse = true;
