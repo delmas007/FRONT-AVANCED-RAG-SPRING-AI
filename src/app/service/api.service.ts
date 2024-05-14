@@ -53,7 +53,7 @@ export class ApiService {
 
   async registration(donnee : Utilisateur): Promise<any> {
     return await firstValueFrom(
-      this.http.post<Utilisateur>(`${this.host}/inscription`, donnee)
+      this.http.post<Utilisateur>(`${this.host}/inscription/`, donnee)
     );
   }
 

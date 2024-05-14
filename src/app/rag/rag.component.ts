@@ -98,7 +98,8 @@ export class RagComponent {
       this.files.forEach((file) => {
         formData.append('files', file);
       });
-      let  user :Utilisateur = {id :this.state.authState.id,username:'',password:'',nom:'',prenom:'',email:''}
+      // id :this.state.authState.id,
+      let  user :Utilisateur = {username:'',password:'',nom:'',prenom:'',email:''}
       this.apiService.envoyerFichiers(formData,this.currentAction.type,user).subscribe({
         next: (response) => {
           formData.delete('files');

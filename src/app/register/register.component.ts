@@ -20,7 +20,6 @@ export class RegisterComponent implements OnInit{
   formLogin!: FormGroup;
   errorMessage: undefined;
   donnee: Utilisateur = {
-    id: "",
     username: "",
     password: "",
     email: "",
@@ -51,6 +50,7 @@ export class RegisterComponent implements OnInit{
     this.donnee.nom = this.formLogin.value.nom;
     this.donnee.prenom = this.formLogin.value.prenom;
     if (this.donnee.password === confirmePassword) {
+      console.log(this.donnee)
       this.apiService.registration(this.donnee)
         .then((response : any) => {
           this.router.navigateByUrl("/connexion")
