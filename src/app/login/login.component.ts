@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, ReactiveFormsModule} from "@angular/forms";
 import {ApiService} from "../service/api.service";
 import {Router, RouterLink} from "@angular/router";
+import {StateService} from "../service/state.service";
 
 @Component({
   selector: 'app-login',
@@ -17,7 +18,7 @@ export class LoginComponent implements OnInit{
   formLogin!: FormGroup;
   errorMessage: undefined;
 
-  constructor(private fb:FormBuilder,private apiService: ApiService, private router: Router) {
+  constructor(private fb:FormBuilder,private apiService: ApiService, private router: Router,private state: StateService) {
 
   }
 
@@ -36,6 +37,7 @@ export class LoginComponent implements OnInit{
     this.apiService.Login(username, password)
       .then((token : any) => {
         localStorage.setItem('token', token.accessToken);
+        this.state.loadToken();
         this.router.navigateByUrl("/user/rag")
       })
       .catch(err => {

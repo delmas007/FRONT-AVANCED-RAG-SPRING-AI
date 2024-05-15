@@ -99,7 +99,7 @@ export class RagComponent {
         formData.append('files', file);
       });
       // id :this.state.authState.id,
-      let  user :Utilisateur = {username:'',password:'',nom:'',prenom:'',email:''}
+      let  user :Utilisateur = {id :this.state.authState.id,username:'',password:'',nom:'',prenom:'',email:''}
       this.apiService.envoyerFichiers(formData,this.currentAction.type,user).subscribe({
         next: (response) => {
           formData.delete('files');

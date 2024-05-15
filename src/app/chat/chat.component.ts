@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ElementRef, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {FormsModule} from "@angular/forms";
 import {NgIf, NgStyle} from "@angular/common";
 import {ApiService} from "../service/api.service";
@@ -17,7 +17,7 @@ import {StateService} from "../service/state.service";
   templateUrl: './chat.component.html',
   styleUrl: './chat.component.css'
 })
-export class ChatComponent  {
+export class ChatComponent implements OnInit{
 
   question: string = '';
   response: string = '';
@@ -59,7 +59,7 @@ export class ChatComponent  {
   }
   envoyerQuestion(question: string) {
     // id :this.state.authState.id
-    let  user :Utilisateur = {username:'',password:'',nom:'',prenom:'',email:''}
+    let  user :Utilisateur = {id :this.state.authState.id,username:'',password:'',nom:'',prenom:'',email:''}
     this.message = true;
     this.loader = true;
     this.apiService.question(question,user)
@@ -77,6 +77,10 @@ export class ChatComponent  {
         this.message = false;
         this.loader = false;
       });
+  }
+
+  ngOnInit(): void {
+
   }
 
 }
