@@ -1,8 +1,7 @@
-<nav class="p-3 navbar justify-content-center align-content-center mt-5 " >
-  <ul class="nav nav-pills ">
+<nav class="p-3 navbar justify-content-center align-content-center mt-5 " ><nav class="p-3 navbar justify-content-between align-content-center mt-5">
+  <ul class="nav nav-pills mx-auto">
     <li *ngFor="let action of actions" class="texte me-1">
       <button
-
         (click)="setCurrentAction(action)"
         [class]="action == currentAction ? 'btn btn-primary ms-1' : 'btn btn-outline-primary ms-1'"
       >
@@ -11,7 +10,44 @@
       </button>
     </li>
   </ul>
+  <ul class="nav">
+    <li class="marge">
+      <button class="btn btn-primary" (click)="logout()">
+        <i class="bi bi-box-arrow-right"></i>
+      </button>
+    </li>
+  </ul>
 </nav>
+
+<!--  <li class="marge" >-->
+<!--  <button class="btn btn-primary" (click)="logout()">-->
+<!--    <i class="bi bi-box-arrow-right"></i>-->
+<!--  </button>-->
+<!--</li>-->
+
+
+<!--<nav class="p-3 navbar justify-content-center align-content-center mt-5 " >-->
+<!--  <ul class="nav nav-pills ">-->
+<!--    <div style="margin-left: 500px">-->
+<!--      <li *ngFor="let action of actions" class="texte me-1" >-->
+<!--        <button-->
+
+<!--          (click)="setCurrentAction(action)"-->
+<!--          [class]="action == currentAction ? 'btn btn-primary ms-1' : 'btn btn-outline-primary ms-1'"-->
+<!--        >-->
+<!--          <span class="action-text">{{action.nom}}</span>-->
+<!--          <i class="bi {{action.icon}}"></i>-->
+<!--        </button>-->
+<!--      </li>-->
+<!--    </div>-->
+
+<!--  </ul>-->
+<!--  <div class=" " style="margin-left: 305px">-->
+<!--    <button class="btn btn-primary" (click)="logout()">-->
+<!--      déconnexion-->
+<!--    </button>-->
+<!--  </div>-->
+<!--</nav>-->
 
 <div class="container my-5">
   <div class="card shadow-lg">

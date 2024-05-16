@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {NgForOf} from "@angular/common";
 import {RouterLink} from "@angular/router";
+import {StateService} from "../service/state.service";
 
 @Component({
   selector: 'app-navbar',
@@ -13,6 +14,8 @@ import {RouterLink} from "@angular/router";
   styleUrl: './navbar.component.css'
 })
 export class NavbarComponent {
+  constructor(private state:StateService) {
+  }
 
   actions : Array<any> = [
     { title : 'Home' , routes : '/admin/home' , icon :'bi-house',nav : 'nav-link'},
@@ -26,7 +29,4 @@ export class NavbarComponent {
     this.currentAction=action;
   }
 
-  logout() {
-
-  }
 }

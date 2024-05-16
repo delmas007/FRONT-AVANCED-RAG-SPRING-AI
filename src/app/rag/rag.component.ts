@@ -1,6 +1,6 @@
 import {Component, inject, Injector} from '@angular/core';
 import {DecimalPipe, NgClass, NgForOf, NgIf} from "@angular/common";
-import {RouterLink} from "@angular/router";
+import {Router, RouterLink} from "@angular/router";
 import {ApiService} from "../service/api.service";
 import {Utilisateur} from "../Model/utilisateur";
 import {StateService} from "../service/state.service";
@@ -31,7 +31,7 @@ export class RagComponent {
     { nom : 'excel' , type : '.xlsx' , icon :'bi bi-file-earmark-spreadsheet-fill',nav : 'nav-link'},
     { nom : 'word' , type : '.docx' , icon :'bi bi-file-earmark-word-fill',nav : 'nav-link'}
   ]
-  constructor(private apiService: ApiService,private state: StateService) {
+  constructor(private apiService: ApiService,private state: StateService,private router:Router) {
 
   }
   setCurrentAction (action : any){
@@ -114,4 +114,18 @@ export class RagComponent {
     }
 
   }
+  logout() {
+    localStorage.removeItem('token');  // Effacer le token lors de la déconnexion
+    this.state.setAuthState({
+      iid : undefined,
+      isAuthenticated : false,
+      username : undefined,
+      role : undefined,
+      name : undefined,
+      prenom : undefined,
+      email : undefined,
+    });
+    this.router.navigate(['/connexion']);
+  }
+
 }
