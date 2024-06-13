@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {FormsModule} from "@angular/forms";
 import {NgClass, NgForOf, NgIf} from "@angular/common";
@@ -16,11 +16,30 @@ import {ApiService} from "../service/api.service";
   templateUrl: './verify-code.component.html',
   styleUrl: './verify-code.component.css'
 })
-export class VerifyCodeComponent {
+export class VerifyCodeComponent implements OnInit {
   digits: string[] = new Array(6).fill('');
   isError: boolean = false;
+  resendDisabled: boolean = false;
+  countdownTimer: number = 30; // Temps en secondes
 
   constructor(private apiService: ApiService, private http: HttpClient) {}
+
+  ngOnInit() {
+    // Démarre le compte à rebours dès que le composant est initialisé
+    this.startCountdown();
+  }
+
+  startCountdown() {
+    this.resendDisabled = true; // Désactive le lien de renvoi
+    const interval = setInterval(() => {
+      this.countdownTimer--;
+      if (this.countdownTimer <= 0) {
+        clearInterval(interval);
+        this.resendDisabled = false; // Active à nouveau le lien de renvoi
+        this.countdownTimer = 30; // Réinitialise le compte à rebours
+      }
+    }, 1000); // 1000 ms = 1 seconde
+  }
 
   verifyCode() {
     const code = this.digits.join('');
@@ -57,6 +76,11 @@ export class VerifyCodeComponent {
   }
 
   resendCode() {
+    // Réinitialise le compte à rebours et démarre à nouveau
+    this.countdownTimer = 30;
+    this.startCountdown();
+
+    // Appel à votre service HTTP pour renvoyer le code
     this.http.get('/api/resend-code').subscribe({
       next: (response) => console.log('Code renvoyé avec succès', response),
       error: (error) => console.error('Erreur lors de l\'envoi du code', error)
