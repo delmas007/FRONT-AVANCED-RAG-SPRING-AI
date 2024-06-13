@@ -1,1 +1,8 @@
-<p>verify-code works!</p>
+<div class="container">
+  <h2>Confirmer Votre Compte</h2>
+  <p>Veuillez entrer le code de confirmation que nous vous avons envoyé.</p>
+  <div class="code-inputs">
+    <input *ngFor="let digit of digits; let i = index" type="text" [(ngModel)]="digits[i]" (ngModelChange)="onModelChange($event, i)" maxlength="1" [class.error]="isError">
+  </div>
+  <p>Vous n'avez pas reçu votre code ? <a href="#" (click)="resendCode()">Envoyez-le à nouveau</a></p>
+</div>

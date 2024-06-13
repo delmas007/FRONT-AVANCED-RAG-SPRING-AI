@@ -43,6 +43,14 @@ export class ApiService {
     );
   }
 
+  async Verification(code: string): Promise<any> {
+    const body = { code: code };
+
+    return await firstValueFrom(
+      this.http.post<any>(`${this.host}/activation/`, body)
+    );
+  }
+
   async Login(username: string, password: string): Promise<any> {
     const body = { username: username, password: password };
 
