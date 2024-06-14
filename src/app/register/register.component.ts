@@ -20,7 +20,7 @@ export class RegisterComponent implements OnInit{
   formLogin!: FormGroup;
   errorMessage: undefined;
   donnee: Utilisateur = {
-    id: "0",
+    id: "",
     username: "",
     password: "",
     email: "",
