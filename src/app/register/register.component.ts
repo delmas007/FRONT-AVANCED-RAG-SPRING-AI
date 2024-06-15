@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} fr
 import {ApiService} from "../service/api.service";
 import {Router, RouterLink} from "@angular/router";
 import {Utilisateur} from "../Model/utilisateur";
+import {Utilisateur2} from "../Model/utilisateur2";
 
 @Component({
   selector: 'app-register',
@@ -19,8 +20,7 @@ export class RegisterComponent implements OnInit{
 
   formLogin!: FormGroup;
   errorMessage: undefined;
-  donnee: Utilisateur = {
-    id: "",
+  donnee: Utilisateur2 = {
     username: "",
     password: "",
     email: "",
@@ -54,7 +54,7 @@ export class RegisterComponent implements OnInit{
       console.log(this.donnee)
       this.apiService.registration(this.donnee)
         .then((response : any) => {
-          this.router.navigateByUrl("/connexion")
+          this.router.navigateByUrl("/verification")
         })
         .catch(err => {
           console.log(err)

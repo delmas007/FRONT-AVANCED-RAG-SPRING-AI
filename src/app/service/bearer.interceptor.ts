@@ -1,13 +1,12 @@
 import { HttpInterceptorFn } from '@angular/common/http';
 
 export const bearerInterceptor: HttpInterceptorFn = (req, next) => {
-
-  if (req.url.includes('/connexion' || '/inscription')) {
+  if (req.url.includes('/connexion') || req.url.includes('/inscription/') || req.url.includes('/activation/') ) {
     return next(req);
   }
 
   let reqUrl = req.clone({
-    headers : req.headers.set('Authorization', 'Bearer ' + localStorage.getItem('token'))
+    headers: req.headers.set('Authorization', 'Bearer ' + localStorage.getItem('token'))
   });
-  return next(reqUrl)
+  return next(reqUrl);
 };

@@ -4,6 +4,7 @@ import {firstValueFrom, Observable} from "rxjs";
 import {Utilisateur} from "../Model/utilisateur";
 import {jwtDecode} from "jwt-decode";
 import {StateService} from "./state.service";
+import {Utilisateur2} from "../Model/utilisateur2";
 
 @Injectable({
   providedIn: 'root'
@@ -59,7 +60,7 @@ export class ApiService {
     );
   }
 
-  async registration(donnee : Utilisateur): Promise<any> {
+  async registration(donnee : Utilisateur2): Promise<any> {
     return await firstValueFrom(
       this.http.post<Utilisateur>(`${this.host}/inscription/`, donnee)
     );
