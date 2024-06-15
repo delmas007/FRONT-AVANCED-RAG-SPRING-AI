@@ -28,5 +28,10 @@ section.vh-100 {
   margin-top: 20px;
   display: none;
 }
+.alert {
+  border-radius: 0.25rem; /* Arrondi les coins du message d'alerte */
+  padding: 1rem; /* Ajoute du rembourrage pour améliorer la lisibilité */
+}
+
 
 

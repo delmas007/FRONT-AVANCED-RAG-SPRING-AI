@@ -16,7 +16,8 @@ import {StateService} from "../service/state.service";
 })
 export class LoginComponent implements OnInit{
   formLogin!: FormGroup;
-  errorMessage: undefined;
+  errorMessage: any;
+  loading = false;
 
   constructor(private fb:FormBuilder,private apiService: ApiService, private router: Router,private state: StateService) {
 
@@ -34,6 +35,7 @@ export class LoginComponent implements OnInit{
   handleLogin() {
     let username = this.formLogin.value.username;
     let password = this.formLogin.value.password;
+    this.loading = true;
     this.apiService.Login(username, password)
       .then((token : any) => {
         localStorage.setItem('token', token.accessToken);
@@ -42,8 +44,10 @@ export class LoginComponent implements OnInit{
       })
       .catch(err => {
         console.log(err)
-        this.errorMessage = err;
-      });
+        this.errorMessage = err.error.message || 'Une erreur s\'est produite';
+      }).finally(() => {
+      this.loading = false;
+    });
   }
 
 }

@@ -4,6 +4,7 @@ import {ApiService} from "../service/api.service";
 import {Router, RouterLink} from "@angular/router";
 import {Utilisateur} from "../Model/utilisateur";
 import {Utilisateur2} from "../Model/utilisateur2";
+import {NgIf} from "@angular/common";
 
 @Component({
   selector: 'app-register',
@@ -11,7 +12,8 @@ import {Utilisateur2} from "../Model/utilisateur2";
   imports: [
     FormsModule,
     ReactiveFormsModule,
-    RouterLink
+    RouterLink,
+    NgIf
   ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
@@ -19,7 +21,7 @@ import {Utilisateur2} from "../Model/utilisateur2";
 export class RegisterComponent implements OnInit{
 
   formLogin!: FormGroup;
-  errorMessage: undefined;
+  errorMessage: any;
   donnee: Utilisateur2 = {
     username: "",
     password: "",
@@ -27,6 +29,7 @@ export class RegisterComponent implements OnInit{
     nom: "",
     prenom: ""
   }
+  loading = false;
 
   constructor(private fb:FormBuilder,private apiService: ApiService, private router: Router) {
 
@@ -51,16 +54,18 @@ export class RegisterComponent implements OnInit{
     this.donnee.nom = this.formLogin.value.nom;
     this.donnee.prenom = this.formLogin.value.prenom;
     if (this.donnee.password === confirmePassword) {
-      console.log(this.donnee)
+      this.loading = true;
       this.apiService.registration(this.donnee)
         .then((response : any) => {
           this.router.navigateByUrl("/verification")
         })
         .catch(err => {
-          console.log(err)
-          this.errorMessage = err;
-        });
+          this.errorMessage = err.error.message || 'Une erreur s\'est produite';
+        }) .finally(() => {
+        this.loading = false;
+      });
     }else {
+      this.errorMessage = 'Les mots de passe ne sont pas identiques'
       console.log('Les mots de passe ne sont pas identiques')
     }
 
