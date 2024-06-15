@@ -3,6 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {FormsModule} from "@angular/forms";
 import {NgClass, NgForOf, NgIf} from "@angular/common";
 import {ApiService} from "../service/api.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-verify-code',
@@ -22,7 +23,7 @@ export class VerifyCodeComponent implements OnInit {
   resendDisabled: boolean = false;
   countdownTimer: number = 30; // Temps en secondes
 
-  constructor(private apiService: ApiService, private http: HttpClient) {}
+  constructor(private apiService: ApiService, private http: HttpClient,private router: Router) {}
 
   ngOnInit() {
     // Démarre le compte à rebours dès que le composant est initialisé
@@ -46,7 +47,7 @@ export class VerifyCodeComponent implements OnInit {
     console.log('Vérification du code:', code);
     this.apiService.Verification(code)
       .then((response: any) => {
-        console.log('Code validé avec succès!', response);
+        this.router.navigateByUrl("/connexion")
       })
       .catch(error => {
         console.error('Échec de la validation du code.', error);
