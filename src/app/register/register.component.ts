@@ -53,6 +53,7 @@ export class RegisterComponent implements OnInit{
     this.donnee.email = this.formLogin.value.email;
     this.donnee.nom = this.formLogin.value.nom;
     this.donnee.prenom = this.formLogin.value.prenom;
+    this.errorMessage = null;
     if (this.donnee.password === confirmePassword) {
       this.loading = true;
       this.apiService.registration(this.donnee)
