@@ -65,6 +65,7 @@ export class ChatComponent implements OnInit{
     this.apiService.question(question,user)
       .then(reponse => {
         this.response = reponse.result;
+        console.log(reponse);
         this.showResponse = true;
         setTimeout(() => {
           this.adjustTextarea(this.responseTextarea.nativeElement);
