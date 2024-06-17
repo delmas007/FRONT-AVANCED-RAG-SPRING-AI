@@ -3,7 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {FormsModule} from "@angular/forms";
 import {NgClass, NgForOf, NgIf} from "@angular/common";
 import {ApiService} from "../service/api.service";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-verify-code',
@@ -21,9 +21,10 @@ export class VerifyCodeComponent implements OnInit {
   digits: string[] = new Array(6).fill('');
   isError: boolean = false;
   resendDisabled: boolean = false;
-  countdownTimer: number = 30; // Temps en secondes
+  countdownTimer: number = 3; // Temps en secondes
+  email!: string ;
 
-  constructor(private apiService: ApiService, private http: HttpClient,private router: Router) {}
+  constructor(private apiService: ApiService, private http: HttpClient,private router: Router,private activatedRoute : ActivatedRoute) {}
 
   ngOnInit() {
     // Démarre le compte à rebours dès que le composant est initialisé
@@ -55,6 +56,27 @@ export class VerifyCodeComponent implements OnInit {
         setTimeout(() => this.isError = false, 5000);
       });
   }
+  resendCode() {
+    // Réinitialise le compte à rebours et démarre à nouveau
+    this.countdownTimer = 3;
+    this.startCountdown();
+    this.email = this.activatedRoute.snapshot.params['email']
+    console.log('Renvoi du code à l\'adresse e-mail:', this.email);
+
+    // Appel à votre service HTTP pour renvoyer le code
+    this.apiService.resendMail(this.email).then((response: any) => {
+      console.log('Code renvoyé avec succès', response)
+    })
+      .catch(error => {
+        console.error('Erreur lors de l\'envoi du code', error)
+      });
+  }
+
+  onResendClick(event: Event) {
+    event.preventDefault();
+    this.resendCode();
+  }
+
 
   onModelChange(value: any, index: number) {
     const trimmedValue = value.trim();
@@ -76,15 +98,5 @@ export class VerifyCodeComponent implements OnInit {
     console.log('État actuel des chiffres:', this.digits);
   }
 
-  resendCode() {
-    // Réinitialise le compte à rebours et démarre à nouveau
-    this.countdownTimer = 30;
-    this.startCountdown();
 
-    // Appel à votre service HTTP pour renvoyer le code
-    this.http.get('/api/resend-code').subscribe({
-      next: (response) => console.log('Code renvoyé avec succès', response),
-      error: (error) => console.error('Erreur lors de l\'envoi du code', error)
-    });
-  }
 }

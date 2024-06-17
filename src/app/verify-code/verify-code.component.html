@@ -5,7 +5,7 @@
     <input *ngFor="let digit of digits; let i = index" type="text" [(ngModel)]="digits[i]" (ngModelChange)="onModelChange($event, i)" maxlength="1" [class.error]="isError">
   </div>
   <p>Vous n'avez pas reçu votre code ?
-    <a href="#" (click)="resendCode()" *ngIf="!resendDisabled">Envoyez-le à nouveau</a>
+    <a href="#" (click)="onResendClick($event)" *ngIf="!resendDisabled">Envoyez-le à nouveau</a>
     <span *ngIf="resendDisabled">Renvoi dans {{ countdownTimer }}</span>
   </p>
 </div>

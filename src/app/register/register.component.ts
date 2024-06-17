@@ -58,7 +58,7 @@ export class RegisterComponent implements OnInit{
       this.loading = true;
       this.apiService.registration(this.donnee)
         .then((response : any) => {
-          this.router.navigateByUrl("/verification")
+          this.router.navigateByUrl(`/verification/${this.donnee.email}`)
         })
         .catch(err => {
           this.errorMessage = err.error.message || 'Une erreur s\'est produite';
