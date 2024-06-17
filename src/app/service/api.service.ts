@@ -44,7 +44,7 @@ export class ApiService {
     );
   }
 
-  async resendMail(email: string){
+  async resendMail(email: string):Promise<any> {
     return await firstValueFrom (
       this.http.post<any>(`${this.host}/resendMail/`,email)
     );

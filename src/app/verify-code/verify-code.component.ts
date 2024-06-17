@@ -68,7 +68,7 @@ export class VerifyCodeComponent implements OnInit {
       console.log('Code renvoyé avec succès', response)
     })
       .catch(error => {
-        console.error('Erreur lors de l\'envoi du code', error)
+        console.log('Erreur lors de l\'envoi du code', error)
       });
   }
 
