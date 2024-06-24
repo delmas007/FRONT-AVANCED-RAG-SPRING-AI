@@ -10,10 +10,10 @@ textarea {
 }
 
 /* Pour les écrans plus grands, ajuster automatiquement la hauteur du textarea */
-.response-textarea {
-  resize: none;
-  overflow: hidden; /* Pas de barre de défilement */
-}
+/*.response-textarea {*/
+/*  resize: none;*/
+/*  overflow: hidden; !* Pas de barre de défilement *!*/
+/*}*/
 
 /* Pour les écrans plus petits (comme les téléphones), activer la barre de défilement verticale */
 @media (max-width: 600px) {
@@ -64,3 +64,14 @@ textarea {
 @keyframes l17 {
   100% {transform: rotate(1turn)}
 }
+
+.response-textarea {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  padding: 10px;
+  background-color: #f8f9fa;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+  font-family: monospace;
+}
+

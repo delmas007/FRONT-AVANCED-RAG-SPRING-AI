@@ -28,31 +28,51 @@
 
 
 
+<!--  <div *ngIf="showResponse" class="mt-4 mb-4">-->
+<!--    <div style="display: flex; justify-content: space-between; align-items: center;">-->
+<!--      <label for="response" style="margin: 0;">Réponse:</label>-->
+<!--      &lt;!&ndash; Icône dynamique pour le bouton de copie &ndash;&gt;-->
+<!--      <i-->
+<!--        *ngIf="!copySuccess"-->
+<!--        (click)="copyToClipboard()"-->
+<!--        class="bi bi-clipboard"-->
+<!--        style="cursor: pointer; color: #303030;">-->
+<!--      </i>-->
+<!--      &lt;!&ndash; Icône de confirmation (apparaît après clic) &ndash;&gt;-->
+<!--      <i-->
+<!--        *ngIf="copySuccess"-->
+<!--        class="bi bi-check-circle"-->
+<!--        style="color: #0D6EFD; transition: opacity 0.5s;">-->
+<!--      </i>-->
+<!--    </div>-->
+<!--    <textarea-->
+<!--      class="form-control response-textarea"-->
+<!--      id="response"-->
+<!--      [(ngModel)]="response"-->
+<!--      readonly-->
+<!--      #responseTextarea-->
+<!--    ></textarea>-->
+<!--  </div>-->
+
+  <!-- app.component.html -->
   <div *ngIf="showResponse" class="mt-4 mb-4">
     <div style="display: flex; justify-content: space-between; align-items: center;">
       <label for="response" style="margin: 0;">Réponse:</label>
-      <!-- Icône dynamique pour le bouton de copie -->
       <i
         *ngIf="!copySuccess"
         (click)="copyToClipboard()"
         class="bi bi-clipboard"
         style="cursor: pointer; color: #303030;">
       </i>
-      <!-- Icône de confirmation (apparaît après clic) -->
       <i
         *ngIf="copySuccess"
         class="bi bi-check-circle"
         style="color: #0D6EFD; transition: opacity 0.5s;">
       </i>
     </div>
-    <textarea
-      class="form-control response-textarea"
-      id="response"
-      [(ngModel)]="response"
-      readonly
-      #responseTextarea
-    ></textarea>
+    <pre class="form-control response-textarea" id="response">{{ response }}</pre>
   </div>
+
 
 
 

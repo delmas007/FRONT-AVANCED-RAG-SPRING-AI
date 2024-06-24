@@ -1,7 +1,7 @@
 import { HttpInterceptorFn } from '@angular/common/http';
 
 export const bearerInterceptor: HttpInterceptorFn = (req, next) => {
-  if (req.url.includes('/connexion') || req.url.includes('/inscription/') || req.url.includes('/activation/') || req.url.includes('verification') ) {
+  if (req.url.includes('/connexion') || req.url.includes('/inscription/') || req.url.includes('/activation/') || req.url.includes('verification') || req.url.includes('resendMail') ) {
     return next(req);
   }
 

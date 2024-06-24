@@ -65,7 +65,6 @@ export class ChatComponent implements OnInit{
     this.apiService.question(question,user)
       .then(reponse => {
         this.response = reponse.result;
-        console.log(reponse);
         this.showResponse = true;
         setTimeout(() => {
           this.adjustTextarea(this.responseTextarea.nativeElement);
@@ -74,7 +73,14 @@ export class ChatComponent implements OnInit{
         this.loader = false;
       })
       .catch(err => {
-        console.error(err);
+        if (err.status === 429) {
+          this.response = "Limite de requêtes dépassée. Veuillez réessayer plus tard.";
+        } else if (err.status === 500) {
+          this.response = "Erreur temporaire du serveur. Veuillez réessayer plus tard.";
+        } else {
+          console.error(err);
+          this.response = "Une erreur s'est produite. Veuillez réessayer plus tard.";
+        }
         this.message = false;
         this.loader = false;
       });

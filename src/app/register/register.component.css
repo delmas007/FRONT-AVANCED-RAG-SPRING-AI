@@ -8,7 +8,7 @@ section.vh-100 {
 /* Styling for medium and large screens */
 @media (min-width: 768px) {
   section {
-    padding: 0;
+    height: 100vh;
   }
 }
 

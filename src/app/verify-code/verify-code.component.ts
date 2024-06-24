@@ -57,18 +57,17 @@ export class VerifyCodeComponent implements OnInit {
       });
   }
   resendCode() {
-    // Réinitialise le compte à rebours et démarre à nouveau
-    this.countdownTimer = 3;
+    this.countdownTimer = 30;
     this.startCountdown();
     this.email = this.activatedRoute.snapshot.params['email']
-    console.log('Renvoi du code à l\'adresse e-mail:', this.email);
+    // console.log('Renvoi du code à l\'adresse e-mail:', this.email);
 
     // Appel à votre service HTTP pour renvoyer le code
     this.apiService.resendMail(this.email).then((response: any) => {
-      console.log('Code renvoyé avec succès', response)
+      // console.log('Code renvoyé avec succès', response)
     })
       .catch(error => {
-        console.log('Erreur lors de l\'envoi du code', error)
+        // console.log('Erreur lors de l\'envoi du code', error)
       });
   }
 
