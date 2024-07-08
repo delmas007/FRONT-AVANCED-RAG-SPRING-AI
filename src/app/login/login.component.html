@@ -1,5 +1,5 @@
 <!-- Login 9 - Bootstrap Brain Component -->
-<section class="bg-primary py-3 py-md-5 py-xl-8 ">
+<section class="bg-primary py-3 py-md-5 py-xl-8">
   <div class="container">
     <div class="row gy-4 align-items-center mt-md-5">
       <div class="col-12 col-md-6 col-xl-7">
@@ -43,14 +43,6 @@
                   </div>
                 </div>
                 <div class="col-12">
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" name="remember_me" id="remember_me">
-                    <label class="form-check-label text-secondary" for="remember_me">
-                      Rester connecté
-                    </label>
-                  </div>
-                </div>
-                <div class="col-12">
                   <div class="d-grid">
                     <button class="btn btn-primary btn-lg" type="submit" [disabled]="loading">
                       <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
@@ -64,7 +56,7 @@
             <div class="row">
               <div class="col-12">
                 <div class="d-flex gap-2 gap-md-4 flex-column flex-md-row justify-content-md-end mt-4">
-                  <a href="#!">Mot de passe oublié</a>
+                  <a routerLink="/mot-de-passe">Mot de passe oublié</a>
                 </div>
               </div>
             </div>
