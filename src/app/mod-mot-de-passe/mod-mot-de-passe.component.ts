@@ -26,9 +26,10 @@ export class ModMotDePasseComponent implements OnInit{
   }
   ngOnInit(): void {
     this.formResetPassword = this.fb.group({
-      newPassword: this.fb.control(""),
-      confirmPassword: this.fb.control(""),
       resetCode: this.fb.control(""),
+      newPassword: this.fb.control("", [Validators.required, Validators.minLength(8)]),
+      confirmPassword: this.fb.control("", [Validators.required, Validators.minLength(8)]),
+
     });
   }
 
@@ -38,6 +39,10 @@ export class ModMotDePasseComponent implements OnInit{
     let resetCode = this.formResetPassword.value.resetCode;
     this.loading = true;
     this.errorMessage = null;
+    if (this.formResetPassword.invalid) {
+      this.errorMessage = "Veuillez corriger les erreurs dans le formulaire.";
+      return;
+    }
     if (newPassword === confirmPassword) {
       this.email = this.activatedRoute.snapshot.params['email']
       this.apiService.nouveauMotDePasse(this.email, resetCode, newPassword)

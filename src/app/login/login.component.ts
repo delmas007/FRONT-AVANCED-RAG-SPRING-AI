@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, ReactiveFormsModule} from "@angular/forms";
+import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {ApiService} from "../service/api.service";
 import {Router, RouterLink} from "@angular/router";
 import {StateService} from "../service/state.service";
@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit{
       // email: ['', [Validators.required, Validators.email]],
       // password: ['', [Validators.required, Validators.minLength(6)]]
       username: this.fb.control(""),
-      password: this.fb.control("")
+      password: this.fb.control("", [Validators.required, Validators.minLength(8)])
     });
   }
 
@@ -39,6 +39,10 @@ export class LoginComponent implements OnInit{
     let password = this.formLogin.value.password;
     this.loading = true;
     this.errorMessage = null;
+    if (this.formLogin.invalid) {
+      this.errorMessage = "Veuillez corriger les erreurs dans le formulaire.";
+      return;
+    }
     this.apiService.Login(username, password)
       .then((token: any) => {
         localStorage.setItem('token', token.accessToken);

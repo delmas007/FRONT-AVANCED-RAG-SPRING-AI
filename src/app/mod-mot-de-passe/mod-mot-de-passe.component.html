@@ -38,12 +38,28 @@
                   <div class="form-floating mb-3">
                     <input type="password" class="form-control" name="newPassword" id="newPassword" placeholder="Nouveau mot de passe" required formControlName="newPassword">
                     <label for="newPassword" class="form-label">Nouveau mot de passe</label>
+                    <div *ngIf="formResetPassword.get('newPassword')?.invalid && (formResetPassword.get('newPassword')?.dirty || formResetPassword.get('newPassword')?.touched)" class="text-danger">
+                      <div *ngIf="formResetPassword.get('newPassword')?.errors?.['required']">
+                        Le mot de passe est requis.
+                      </div>
+                      <div *ngIf="formResetPassword.get('password')?.errors?.['minlength']">
+                        Le mot de passe doit comporter au moins 8 caractères.
+                      </div>
+                    </div>
                   </div>
                 </div>
                 <div class="col-12">
                   <div class="form-floating mb-3">
                     <input type="password" class="form-control" name="confirmPassword" id="confirmPassword" placeholder="Confirmer le mot de passe" required formControlName="confirmPassword">
                     <label for="confirmPassword" class="form-label">Confirmer le mot de passe</label>
+                    <div *ngIf="formResetPassword.get('confirmPassword')?.invalid && (formResetPassword.get('confirmPassword')?.dirty || formResetPassword.get('confirmPassword')?.touched)" class="text-danger">
+                      <div *ngIf="formResetPassword.get('confirmPassword')?.errors?.['required']">
+                        Le mot de passe est requis.
+                      </div>
+                      <div *ngIf="formResetPassword.get('password')?.errors?.['minlength']">
+                        Le mot de passe doit comporter au moins 8 caractères.
+                      </div>
+                    </div>
                   </div>
                 </div>
                 <div class="col-12">

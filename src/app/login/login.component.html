@@ -34,12 +34,25 @@
                   <div class="form-floating mb-3">
                     <input type="text" class="form-control" name="email" id="email" placeholder="name@example.com" required formControlName="username">
                     <label for="email" class="form-label">Username</label>
+                    <div *ngIf="formLogin.get('username')?.invalid && (formLogin.get('username')?.dirty || formLogin.get('username')?.touched)" class="text-danger">
+                      <div *ngIf="formLogin.get('username')?.errors?.['required']">
+                        Le nom d'utilisateur est requis.
+                      </div>
+                    </div>
                   </div>
                 </div>
                 <div class="col-12">
                   <div class="form-floating mb-3">
                     <input type="password" class="form-control" name="password" id="password" value="" placeholder="Password" required formControlName="password">
                     <label for="password" class="form-label">Mot de passe</label>
+                    <div *ngIf="formLogin.get('password')?.invalid && (formLogin.get('password')?.dirty || formLogin.get('password')?.touched)" class="text-danger">
+                      <div *ngIf="formLogin.get('password')?.errors?.['required']">
+                        Le mot de passe est requis.
+                      </div>
+                      <div *ngIf="formLogin.get('password')?.errors?.['minlength']">
+                        Le mot de passe doit comporter au moins 8 caractères.
+                      </div>
+                    </div>
                   </div>
                 </div>
                 <div class="col-12">

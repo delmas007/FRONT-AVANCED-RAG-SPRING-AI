@@ -33,6 +33,14 @@
                   <div class="form-floating mb-3">
                     <input type="email" class="form-control" name="email" id="email" placeholder="name@example.com" required formControlName="email">
                     <label for="email" class="form-label">Adresse email</label>
+                    <div *ngIf="formResetPassword.get('email')?.invalid && (formResetPassword.get('email')?.dirty || formResetPassword.get('email')?.touched)" class="text-danger">
+                      <div *ngIf="formResetPassword.get('email')?.errors?.['required']">
+                        L'email est requis.
+                      </div>
+                      <div *ngIf="formResetPassword.get('email')?.errors?.['email']">
+                        L'email n'est pas valide.
+                      </div>
+                    </div>
                   </div>
                 </div>
                 <div class="col-12">

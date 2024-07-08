@@ -34,6 +34,10 @@ export class MotDePasseComponent implements OnInit{
     let email = this.formResetPassword.value.email;
     this.loading = true;
     this.errorMessage = null;
+    if (this.formResetPassword.invalid) {
+      this.errorMessage = "Veuillez corriger les erreurs dans le formulaire.";
+      return;
+    }
     this.apiService.codeMotDePasse(email)
       .then((token: any) => {
         this.router.navigateByUrl(`/modifier-mot-de-passe/${email}`);

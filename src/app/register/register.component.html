@@ -30,44 +30,83 @@
             <form [formGroup]="formLogin" (ngSubmit)="handRegister()">
               <div class="row gy-3">
                 <div class="col-12">
-                  <div class="form-floating ">
-                    <input type="text" class="form-control" name="Username" id="username" placeholder="name@example.com" required formControlName="username">
+                  <div class="form-floating">
+                    <input type="text" class="form-control" name="Username" id="username" placeholder="Nom d'utilisateur" required formControlName="username">
                     <label for="username" class="form-label">Nom d'utilisateur</label>
+                    <div *ngIf="formLogin.get('username')?.invalid && (formLogin.get('username')?.dirty || formLogin.get('username')?.touched)" class="text-danger">
+                      <div *ngIf="formLogin.get('username')?.errors?.['required']">
+                        Le nom d'utilisateur est requis.
+                      </div>
+                    </div>
                   </div>
                 </div>
                 <div class="col-12">
-                  <div class="form-floating ">
-                    <input type="email" class="form-control" name="email" id="email" placeholder="name@example.com" required formControlName="email">
+                  <div class="form-floating">
+                    <input type="email" class="form-control" name="email" id="email" placeholder="Email" required formControlName="email">
                     <label for="email" class="form-label">Email</label>
+                    <div *ngIf="formLogin.get('email')?.invalid && (formLogin.get('email')?.dirty || formLogin.get('email')?.touched)" class="text-danger">
+                      <div *ngIf="formLogin.get('email')?.errors?.['required']">
+                        L'email est requis.
+                      </div>
+                      <div *ngIf="formLogin.get('email')?.errors?.['email']">
+                        L'email n'est pas valide.
+                      </div>
+                    </div>
                   </div>
                 </div>
                 <div class="col-12">
-                  <div class="form-floating ">
-                    <input type="text" class="form-control" name="Nom" id="nom" placeholder="nom" required formControlName="nom">
+                  <div class="form-floating">
+                    <input type="text" class="form-control" name="Nom" id="nom" placeholder="Nom" required formControlName="nom">
                     <label for="nom" class="form-label">Nom</label>
+                    <div *ngIf="formLogin.get('nom')?.invalid && (formLogin.get('nom')?.dirty || formLogin.get('nom')?.touched)" class="text-danger">
+                      <div *ngIf="formLogin.get('nom')?.errors?.['required']">
+                        Le nom est requis.
+                      </div>
+                    </div>
                   </div>
                 </div>
                 <div class="col-12">
-                  <div class="form-floating ">
-                    <input type="text" class="form-control" name="Prenom" id="prenom" placeholder="prenom" required formControlName="prenom">
+                  <div class="form-floating">
+                    <input type="text" class="form-control" name="Prenom" id="prenom" placeholder="Prenom" required formControlName="prenom">
                     <label for="prenom" class="form-label">Prenom</label>
+                    <div *ngIf="formLogin.get('prenom')?.invalid && (formLogin.get('prenom')?.dirty || formLogin.get('prenom')?.touched)" class="text-danger">
+                      <div *ngIf="formLogin.get('prenom')?.errors?.['required']">
+                        Le prénom est requis.
+                      </div>
+                    </div>
                   </div>
                 </div>
                 <div class="col-12">
-                  <div class="form-floating ">
-                    <input type="password" class="form-control" name="password" id="password" value="" placeholder="Password" required formControlName="password">
+                  <div class="form-floating">
+                    <input type="password" class="form-control" name="password" id="password" placeholder="Mot de passe" required formControlName="password">
                     <label for="password" class="form-label">Mot de passe</label>
+                    <div *ngIf="formLogin.get('password')?.invalid && (formLogin.get('password')?.dirty || formLogin.get('password')?.touched)" class="text-danger">
+                      <div *ngIf="formLogin.get('password')?.errors?.['required']">
+                        Le mot de passe est requis.
+                      </div>
+                      <div *ngIf="formLogin.get('password')?.errors?.['minlength']">
+                        Le mot de passe doit comporter au moins 8 caractères.
+                      </div>
+                    </div>
                   </div>
                 </div>
                 <div class="col-12">
-                  <div class="form-floating ">
-                    <input type="password" class="form-control" name="confirmePassword" id="confirmePassword" value="" placeholder="Password" required formControlName="confirmePassword">
+                  <div class="form-floating">
+                    <input type="password" class="form-control" name="confirmePassword" id="confirmePassword" placeholder="Confirme mot de passe" required formControlName="confirmePassword">
                     <label for="confirmePassword" class="form-label">Confirme mot de passe</label>
+                    <div *ngIf="formLogin.get('confirmePassword')?.invalid && (formLogin.get('confirmePassword')?.dirty || formLogin.get('confirmePassword')?.touched)" class="text-danger">
+                      <div *ngIf="formLogin.get('confirmePassword')?.errors?.['required']">
+                        La confirmation du mot de passe est requise.
+                      </div>
+                      <div *ngIf="formLogin.get('confirmePassword')?.errors?.['minlength']">
+                        Le mot de passe doit comporter au moins 8 caractères.
+                      </div>
+                    </div>
                   </div>
                 </div>
                 <div class="col-12">
                   <div class="d-grid">
-                    <button class="btn btn-primary btn-lg" type="submit" [disabled]="loading">
+                    <button class="btn btn-primary btn-lg" type="submit" [disabled]="formLogin.invalid || loading">
                       <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                       {{ loading ? 'Chargement...' : 'Inscription' }}
                     </button>
@@ -76,6 +115,7 @@
                 </div>
               </div>
             </form>
+
           </div>
         </div>
       </div>

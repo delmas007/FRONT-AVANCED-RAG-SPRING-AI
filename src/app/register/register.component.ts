@@ -38,8 +38,8 @@ export class RegisterComponent implements OnInit{
   ngOnInit(): void {
     this.formLogin = this.fb.group({
       username: this.fb.control(""),
-      password: this.fb.control(""),
-      confirmePassword: this.fb.control(""),
+      password: this.fb.control("", [Validators.required, Validators.minLength(8)]),
+      confirmePassword: this.fb.control("", [Validators.required, Validators.minLength(8)]),
       email: this.fb.control("",[Validators.required, Validators.email]),
       nom: this.fb.control(""),
       prenom: this.fb.control(""),
@@ -54,6 +54,10 @@ export class RegisterComponent implements OnInit{
     this.donnee.nom = this.formLogin.value.nom;
     this.donnee.prenom = this.formLogin.value.prenom;
     this.errorMessage = null;
+    if (this.formLogin.invalid) {
+      this.errorMessage = "Veuillez corriger les erreurs dans le formulaire.";
+      return;
+    }
     if (this.donnee.password === confirmePassword) {
       this.loading = true;
       this.apiService.registration(this.donnee)
