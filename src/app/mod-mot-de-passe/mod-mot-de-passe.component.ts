@@ -26,7 +26,7 @@ export class ModMotDePasseComponent implements OnInit{
   }
   ngOnInit(): void {
     this.formResetPassword = this.fb.group({
-      resetCode: this.fb.control(""),
+      resetCode: this.fb.control("", [Validators.required, Validators.pattern(/^\d{6}$/)]),
       newPassword: this.fb.control("", [Validators.required, Validators.minLength(8)]),
       confirmPassword: this.fb.control("", [Validators.required, Validators.minLength(8)]),
 

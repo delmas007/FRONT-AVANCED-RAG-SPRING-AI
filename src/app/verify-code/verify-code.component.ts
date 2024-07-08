@@ -23,11 +23,11 @@ export class VerifyCodeComponent implements OnInit {
   resendDisabled: boolean = false;
   countdownTimer: number = 3; // Temps en secondes
   email!: string ;
+  code: string[] = ['', '', '', '', '', ''];
 
   constructor(private apiService: ApiService, private http: HttpClient,private router: Router,private activatedRoute : ActivatedRoute) {}
 
   ngOnInit() {
-    // Démarre le compte à rebours dès que le composant est initialisé
     this.startCountdown();
   }
 
@@ -43,29 +43,55 @@ export class VerifyCodeComponent implements OnInit {
     }, 1000); // 1000 ms = 1 seconde
   }
 
+  // verifyCode() {
+  //   const code = this.code.join('');
+  //   this.apiService.Verification(code)
+  //     .then((response: any) => {
+  //       this.router.navigateByUrl("/connexion")
+  //     })
+  //     .catch(error => {
+  //       this.isError = true;
+  //       setTimeout(() => {
+  //         this.isError = false;
+  //         // Ajouter la classe shake aux champs d'entrée
+  //         const inputs = document.querySelectorAll('.code-inputs input');
+  //         inputs.forEach(input => input.classList.add('shake'));
+  //         // Retirer la classe shake après l'animation
+  //         setTimeout(() => {
+  //           inputs.forEach(input => input.classList.remove('shake'));
+  //         }, 400);
+  //       }, 7000);
+  //     });
+  // }
   verifyCode() {
-    const code = this.digits.join('');
+    const code = this.code.join('');
     this.apiService.Verification(code)
       .then((response: any) => {
-        this.router.navigateByUrl("/connexion")
+        this.router.navigateByUrl("/connexion");
       })
       .catch(error => {
         this.isError = true;
-        setTimeout(() => this.isError = false, 5000);
+        const inputs = document.querySelectorAll('.code-inputs input');
+        inputs.forEach(input => input.classList.add('shake'));
+
+        setTimeout(() => {
+          this.isError = false;
+          inputs.forEach(input => input.classList.remove('shake'));
+        }, 400);
       });
   }
+
   resendCode() {
     this.countdownTimer = 30;
     this.startCountdown();
     this.email = this.activatedRoute.snapshot.params['email']
-    // console.log('Renvoi du code à l\'adresse e-mail:', this.email);
 
     // Appel à votre service HTTP pour renvoyer le code
     this.apiService.resendMail(this.email).then((response: any) => {
-      // console.log('Code renvoyé avec succès', response)
+      console.log('Code renvoyé avec succès', response)
     })
       .catch(error => {
-        // console.log('Erreur lors de l\'envoi du code', error)
+        console.log('Erreur lors de l\'envoi du code', error)
       });
   }
 
@@ -75,25 +101,43 @@ export class VerifyCodeComponent implements OnInit {
   }
 
 
-  onModelChange(value: any, index: number) {
-    const trimmedValue = value.trim();
-    if (trimmedValue && trimmedValue.match(/^[0-9]$/) && index < this.digits.length) {
-      this.digits[index] = trimmedValue;
+  onModelChange(event: any, index: number) {
+    if (event && event.target && typeof event.target.value === 'string') {
+      const value = event.target.value.trim();
+      if (value.match(/^[0-9]$/) && index < this.digits.length) {
+        this.digits[index] = value;
 
-      if (index < this.digits.length - 1) {
-        const nextInput = document.getElementById('input_' + (index + 1)) as HTMLInputElement;
-        if (nextInput) {
-          nextInput.focus();
+        if (index < this.digits.length - 1) {
+          const nextInput = event.target.nextElementSibling as HTMLInputElement;
+          if (nextInput) {
+            nextInput.focus();
+          }
+        } else {
+          this.verifyCode();
         }
       } else {
-        this.verifyCode();
+        this.digits[index] = '';
       }
-    } else {
-      this.digits[index] = '';
-    }
 
-    console.log('État actuel des chiffres:', this.digits);
+      console.log('État actuel des chiffres :', this.digits);
+    }
   }
+
+  moveFocus(event: any, index: number): void {
+    const input = event.target as HTMLInputElement;
+    if (!/^\d$/.test(input.value)) {
+      input.value = '';
+      return;
+    }
+    if (input.value.length > 0 && index < this.code.length - 1) {
+      const nextInput = document.querySelectorAll('.code-inputs input')[index + 1] as HTMLInputElement;
+      nextInput.focus();
+    } else {
+      this.verifyCode();
+    }
+  }
+
+
 
 
 }
