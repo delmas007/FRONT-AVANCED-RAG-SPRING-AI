@@ -72,4 +72,12 @@ export class ApiService {
     );
   }
 
+  async codeMotDePasse(email: string): Promise<any> {
+    const body = { email: email };
+
+    return await firstValueFrom(
+      this.http.post<any>(`${this.host}/modifierMotDePasse/`, body)
+    );
+  }
+
 }
