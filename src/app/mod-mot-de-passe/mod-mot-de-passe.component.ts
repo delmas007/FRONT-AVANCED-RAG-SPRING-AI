@@ -1,12 +1,66 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
+import {ApiService} from "../service/api.service";
+import {ActivatedRoute, Router, RouterLink} from "@angular/router";
+import {NgIf} from "@angular/common";
 
 @Component({
   selector: 'app-mod-mot-de-passe',
   standalone: true,
-  imports: [],
+  imports: [
+    ReactiveFormsModule,
+    NgIf,
+    RouterLink
+  ],
   templateUrl: './mod-mot-de-passe.component.html',
   styleUrl: './mod-mot-de-passe.component.css'
 })
-export class ModMotDePasseComponent {
+export class ModMotDePasseComponent implements OnInit{
+  formResetPassword!: FormGroup;
+  errorMessage: any;
+  loading = false;
+  email!: string ;
+
+
+  constructor(private fb:FormBuilder,private apiService: ApiService, private router: Router,private activatedRoute : ActivatedRoute) {
+  }
+  ngOnInit(): void {
+    this.formResetPassword = this.fb.group({
+      newPassword: this.fb.control(""),
+      confirmPassword: this.fb.control(""),
+      resetCode: this.fb.control(""),
+    });
+  }
+
+  handleResetPassword() {
+    let newPassword = this.formResetPassword.value.newPassword;
+    let confirmPassword = this.formResetPassword.value.confirmPassword;
+    let resetCode = this.formResetPassword.value.resetCode;
+    this.loading = true;
+    this.errorMessage = null;
+    if (newPassword === confirmPassword) {
+      this.email = this.activatedRoute.snapshot.params['email']
+      this.apiService.nouveauMotDePasse(this.email, resetCode, newPassword)
+        .then((token: any) => {
+          this.router.navigateByUrl("/connexion")
+        })
+        .catch(err => {
+          this.loading = false;
+          if (err.error && err.error.message) {
+            this.errorMessage = err.error.message;
+          } else {
+            this.errorMessage = 'erreur';
+          }
+        })
+        .finally(() => {
+          this.loading = false;
+        });
+    }else {
+      this.loading = false;
+      this.errorMessage = 'Les mots de passe ne sont pas identiques'
+    }
+
+  }
 
 }
+

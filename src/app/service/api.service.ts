@@ -80,4 +80,16 @@ export class ApiService {
     );
   }
 
+  async nouveauMotDePasse(email: string,code :string,password :string): Promise<any> {
+    const body = {
+      email: email,
+      code: code,
+      password: password
+    };
+
+    return await firstValueFrom(
+      this.http.post<any>(`${this.host}/NouveauMotDePasse/`, body)
+    );
+  }
+
 }

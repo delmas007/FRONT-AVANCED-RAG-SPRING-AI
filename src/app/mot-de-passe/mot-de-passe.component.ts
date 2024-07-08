@@ -36,13 +36,13 @@ export class MotDePasseComponent implements OnInit{
     this.errorMessage = null;
     this.apiService.codeMotDePasse(email)
       .then((token: any) => {
-        console.log(token);
-        // this.router.navigateByUrl("/user/rag");
+        this.router.navigateByUrl(`/modifier-mot-de-passe/${email}`);
       })
       .catch((err: any)=> {
         if (err.error && err.error.message) {
           this.errorMessage = err.error.message;
         } else {
+          this.loading = false;
           console.log(err);
           this.errorMessage = 'Mot de passe incorrecte';
         }

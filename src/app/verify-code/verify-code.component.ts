@@ -45,13 +45,11 @@ export class VerifyCodeComponent implements OnInit {
 
   verifyCode() {
     const code = this.digits.join('');
-    console.log('Vérification du code:', code);
     this.apiService.Verification(code)
       .then((response: any) => {
         this.router.navigateByUrl("/connexion")
       })
       .catch(error => {
-        console.error('Échec de la validation du code.', error);
         this.isError = true;
         setTimeout(() => this.isError = false, 5000);
       });

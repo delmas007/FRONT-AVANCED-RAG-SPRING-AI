@@ -67,7 +67,6 @@ export class RegisterComponent implements OnInit{
       });
     }else {
       this.errorMessage = 'Les mots de passe ne sont pas identiques'
-      console.log('Les mots de passe ne sont pas identiques')
     }
 
   }
