@@ -66,6 +66,7 @@ export class RegisterComponent implements OnInit{
         })
         .catch(err => {
           this.errorMessage = err.error.message || 'Une erreur s\'est produite';
+          console.log(err);
         }) .finally(() => {
         this.loading = false;
       });

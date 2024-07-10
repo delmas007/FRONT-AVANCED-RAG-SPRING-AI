@@ -13,9 +13,9 @@ export class ApiService {
   Affquestion: boolean = false;
 
   private host = 'http://localhost:7788';
-
+  // private host = 'http://spring-app:7788';
+  //
   constructor(private http: HttpClient) {}
-   id = 'dda5dec1-39f5-4344-a962-dc2e7a63e546'
   // envoyerFichiers(formData: FormData,extension:String,user:Utilisateur): Observable<any> {
   //   return this.http.post<any>(`${this.host}/fichier/${extension}/${user}`,formData);
   // }
