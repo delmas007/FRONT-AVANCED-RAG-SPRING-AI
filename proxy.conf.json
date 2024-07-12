@@ -1,0 +1,10 @@
+{
+  "/api": {
+    "target": "http://spring-app:7788",
+    "secure": false,
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/api": ""
+    }
+  }
+}
