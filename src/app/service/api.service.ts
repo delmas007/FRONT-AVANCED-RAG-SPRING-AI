@@ -30,17 +30,7 @@ import {Utilisateur2} from "../Model/utilisateur2";
     return a;
   }
 
-    // async question(question: String){
-    //   return await firstValueFrom(this.http.get<any>(`${this.host}/rag/?query=${question}`));
-    // }
 
-    // async question(question: String) {
-    //   return await firstValueFrom(
-    //     this.http.get<string>(`${this.host}/rag/?query=${question}`, {
-    //       responseType: 'json', // Corrigez ici
-    //     })
-    //   );
-    // }
     async question(question: string, user: Utilisateur) {
       return await firstValueFrom(
         this.http.post<any>(`${this.host}/rag/?query=${encodeURIComponent(question)}`,user, {
