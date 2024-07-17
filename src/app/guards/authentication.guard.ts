@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import {  ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import {StateService} from "../service/state.service";
+import {jwtDecode} from "jwt-decode";
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +14,20 @@ export class AuthenticationGuard {
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
+
+    const token = localStorage.getItem('token');
+    if (token) {
+      const decodedJwt: any = jwtDecode(token);
+      const currentTime = Date.now() / 1000;
+
+      if (decodedJwt.exp < currentTime) {
+        // Token has expired
+        localStorage.removeItem('token');
+        this.state.setAuthState({ isAuthenticated: false, role: undefined });
+        this.router.navigateByUrl("/admin/notAuthorized");
+        return false;
+      }
+    }
     if (this.state.authState.isAuthenticated ) {
       if (this.state.authState.role == "ADMIN" || this.state.authState.role == "USER") {
         return true;

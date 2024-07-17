@@ -62,6 +62,7 @@ import {Utilisateur2} from "../Model/utilisateur2";
     }
 
     async registration(donnee : Utilisateur2): Promise<any> {
+      console.log(donnee.password);
       return await firstValueFrom(
         this.http.post<Utilisateur>(`${this.host}/inscription/`, donnee)
       );
