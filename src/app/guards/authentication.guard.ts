@@ -24,7 +24,7 @@ export class AuthenticationGuard {
         // Token has expired
         localStorage.removeItem('token');
         this.state.setAuthState({ isAuthenticated: false, role: undefined });
-        this.router.navigateByUrl("/admin/notAuthorized");
+        this.router.navigateByUrl("/sessionExpired");
         return false;
       }
     }

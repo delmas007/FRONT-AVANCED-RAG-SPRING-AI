@@ -8,6 +8,8 @@ import {AuthorizationGuard} from "./guards/authorization.guard";
 import {VerifyCodeComponent} from "./verify-code/verify-code.component";
 import {MotDePasseComponent} from "./mot-de-passe/mot-de-passe.component";
 import {ModMotDePasseComponent} from "./mod-mot-de-passe/mod-mot-de-passe.component";
+import {NotAuthorizedComponent} from "./not-authorized/not-authorized.component";
+import {SessionComponent} from "./session/session.component";
 
 export const routes: Routes = [
 
@@ -16,7 +18,8 @@ export const routes: Routes = [
   { path : "verification/:email" , component : VerifyCodeComponent},
   { path : "modifier-mot-de-passe/:email" , component : ModMotDePasseComponent},
   { path : "mot-de-passe" , component : MotDePasseComponent},
-
+  { path: "notAuthorized", component: NotAuthorizedComponent },
+  { path: "sessionExpired", component: SessionComponent },
   { path : "user" , component : UserComponent,canActivate:[AuthenticationGuard] ,children : [
       { path : "rag" , component : RagComponent,canActivate:[AuthorizationGuard]},
     ]},

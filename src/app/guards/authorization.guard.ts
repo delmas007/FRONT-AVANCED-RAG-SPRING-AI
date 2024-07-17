@@ -15,7 +15,7 @@ export class AuthorizationGuard {
     if (this.state.authState.role == "ADMIN" || this.state.authState.role == "USER") {
       return true;
     } else {
-      this.router.navigateByUrl("/admin/notAuthorized");
+      this.router.navigateByUrl("/notAuthorized");
       return false;
     }
   }
