@@ -25,11 +25,6 @@ import {Utilisateur2} from "../Model/utilisateur2";
       return this.http.post<any>(`${this.host}/fichier/${extension}`, formData);
     }
 
-  a(): Observable<any> {
-    let a = this.http.get<any>(`${this.host}/a/`)
-    return a;
-  }
-
 
     async question(question: string, user: Utilisateur) {
       return await firstValueFrom(
@@ -62,7 +57,6 @@ import {Utilisateur2} from "../Model/utilisateur2";
     }
 
     async registration(donnee : Utilisateur2): Promise<any> {
-      console.log(donnee.password);
       return await firstValueFrom(
         this.http.post<Utilisateur>(`${this.host}/inscription/`, donnee)
       );
