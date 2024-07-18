@@ -12,10 +12,10 @@ import {Utilisateur2} from "../Model/utilisateur2";
   export class ApiService {
     Affquestion: boolean = false;
 
-    private host = 'http://localhost:7788';
+    // private host = 'http://localhost:7788';
     // private host = 'http://spring-app:7788';
-    //  private host = '/api';
-    //
+     private host = '/api';
+
     constructor(private http: HttpClient) {}
     // envoyerFichiers(formData: FormData,extension:String,user:Utilisateur): Observable<any> {
     //   return this.http.post<any>(`${this.host}/fichier/${extension}/${user}`,formData);
