@@ -23,19 +23,22 @@ export class RagComponent {
   invalidFiles: File[] = [];
   inputLabel = 'Choisir des fichiers';
   loader: boolean = false;
-  currentAction : any='';
+  currentAction: any = '';
+  totalFileSizeExceeded: boolean = false;  // Propriété pour suivre si la taille totale dépasse la limite
+  errorMessage: string = '';  // Propriété pour stocker les messages d'erreur
+  private timeoutHandle: any;
 
-  actions : Array<any> = [
-    { nom : 'pdf' , type : '.pdf' , icon :'bi bi-file-pdf-fill',nav : 'nav-link'},
-    { nom : 'powerpoint' , type : '.pptx' , icon :'bi bi-file-earmark-slides-fill',nav : 'nav-link'},
-    { nom : 'excel' , type : '.xlsx' , icon :'bi bi-file-earmark-spreadsheet-fill',nav : 'nav-link'},
-    { nom : 'word' , type : '.docx' , icon :'bi bi-file-earmark-word-fill',nav : 'nav-link'}
-  ]
-  constructor(private apiService: ApiService,private state: StateService,private router:Router) {
+  actions: Array<any> = [
+    { nom: 'pdf', type: '.pdf', icon: 'bi bi-file-pdf-fill', nav: 'nav-link' },
+    { nom: 'powerpoint', type: '.pptx', icon: 'bi bi-file-earmark-slides-fill', nav: 'nav-link' },
+    { nom: 'excel', type: '.xlsx', icon: 'bi bi-file-earmark-spreadsheet-fill', nav: 'nav-link' },
+    { nom: 'word', type: '.docx', icon: 'bi bi-file-earmark-word-fill', nav: 'nav-link' }
+  ];
 
-  }
-  setCurrentAction (action : any){
-    this.currentAction=action;
+  constructor(private apiService: ApiService, private state: StateService, private router: Router) {}
+
+  setCurrentAction(action: any) {
+    this.currentAction = action;
   }
 
   onFileChange(event: any) {
@@ -44,25 +47,39 @@ export class RagComponent {
     if (input.files) {
       const newFiles = Array.from(input.files);
 
+      // Calculer la taille totale des fichiers
+      const totalSize = newFiles.reduce((sum, file) => sum + file.size, 0);
+      const maxSize = 2_000_000;  // Taille maximale en octets (2 Mo)
+
+      if (totalSize > maxSize) {
+        this.totalFileSizeExceeded = true;
+        this.errorMessage = 'Un ou plusieurs fichiers dépassent la taille maximale autorisée de 2 Mo.';
+        this.files = [];  // Réinitialiser la liste des fichiers
+        this.inputLabel = 'Choisir des fichiers';
+        clearTimeout(this.timeoutHandle);
+        this.timeoutHandle = setTimeout(() => {
+          this.loader = false;  // Réinitialiser le loader après 30 secondes
+        }, 30_000);  // 30 secondes en millisecondes
+        return;  // Arrêter le traitement si la taille totale dépasse la limite
+      } else {
+        this.totalFileSizeExceeded = false;
+        this.errorMessage = '';
+      }
+
       // Obtenir l'extension autorisée à partir de l'action actuelle
       const allowedExtensions = [this.currentAction.type.toLowerCase()];
 
-      // Filtrer les fichiers non autorisés
+      // Filtrer les fichiers invalides
       this.invalidFiles = newFiles.filter(
         (file) => !allowedExtensions.some((ext) => file.name.toLowerCase().endsWith(ext))
       );
 
-      if (this.invalidFiles.length > 0) {
-        // Affiche le message d'erreur pour les fichiers invalides
-        console.log('Les fichiers non autorisés:', this.invalidFiles);
-      }
-
-      // Garder seulement les fichiers autorisés
+      // Garder seulement les fichiers valides
       const validFiles = newFiles.filter(
         (file) => allowedExtensions.some((ext) => file.name.toLowerCase().endsWith(ext))
       );
 
-      // Ajout des fichiers valides à la liste des fichiers
+      // Ajouter les fichiers valides à la liste des fichiers
       this.files = [...this.files, ...validFiles];
       this.inputLabel = 'Fichiers ajoutés';
     }
@@ -72,6 +89,7 @@ export class RagComponent {
     this.files.splice(index, 1);
     if (this.files.length === 0) {
       this.inputLabel = 'Choisir des fichiers';
+      this.totalFileSizeExceeded = false;  // Réinitialiser l'état si tous les fichiers sont supprimés
     }
   }
 
@@ -91,41 +109,66 @@ export class RagComponent {
     }
     return 'bi bi-file-earmark';
   }
+
   envoyerFichiers() {
-    this.loader = true;
+
     if (this.files && this.files.length > 0) {
+      // Calculer la taille totale des fichiers
+      const totalSize = this.files.reduce((sum, file) => sum + file.size, 0);
+      const maxSize = 2_000_000;  // Taille maximale en octets (2 Mo)
+
+      if (totalSize > maxSize) {
+        this.errorMessage = 'Un ou plusieurs fichiers dépassent la taille maximale autorisée de 2 Mo.';
+        clearTimeout(this.timeoutHandle);
+        this.timeoutHandle = setTimeout(() => {
+          return;  // Réinitialiser le loader après 30 secondes
+        }, 50_000);  // 30 secondes en millisecondes
+        return;
+      }
+      this.loader = true;
+
       const formData = new FormData();
       this.files.forEach((file) => {
         formData.append('files', file);
       });
-      // id :this.state.authState.id,
-      let  user :Utilisateur = {id :this.state.authState.id,username:'',password:'',nom:'',prenom:'',email:''}
-      this.apiService.envoyerFichiers(formData,this.currentAction.type,user).subscribe({
+
+      let user: Utilisateur = { id: this.state.authState.id, username: '', password: '', nom: '', prenom: '', email: '' };
+      this.apiService.envoyerFichiers(formData, this.currentAction.type, user).subscribe({
         next: (response) => {
           formData.delete('files');
           this.loader = false;
           this.apiService.Affquestion = true;
         },
         error: (error) => {
-          console.error('Erreur:', error); // Affichez l'erreur
+          console.error('Erreur:', error);
+          this.errorMessage = 'Erreur lors de l\'envoi des fichiers.';
           this.loader = false;
         },
       });
+    } else {
+      this.loader = false;
+      this.errorMessage = 'Aucun fichier à envoyer.';
     }
-
   }
+
   logout() {
-    localStorage.removeItem('token');  // Effacer le token lors de la déconnexion
+    localStorage.removeItem('token');
     this.state.setAuthState({
-      iid : undefined,
-      isAuthenticated : false,
-      username : undefined,
-      role : undefined,
-      name : undefined,
-      prenom : undefined,
-      email : undefined,
+      iid: undefined,
+      isAuthenticated: false,
+      username: undefined,
+      role: undefined,
+      name: undefined,
+      prenom: undefined,
+      email: undefined,
     });
     this.router.navigate(['/connexion']);
   }
-
 }
+
+
+
+
+
+
+
