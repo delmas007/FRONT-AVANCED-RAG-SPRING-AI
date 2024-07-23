@@ -1,6 +1,6 @@
 {
   "/api": {
-    "target": "http://spring-app:7788",
+    "target": "https://ragbd-4f3703925621.herokuapp.com",
     "secure": false,
     "changeOrigin": true,
     "pathRewrite": {
