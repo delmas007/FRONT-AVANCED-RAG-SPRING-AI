@@ -14,7 +14,7 @@ import {Utilisateur2} from "../Model/utilisateur2";
 
     // private host = 'http://localhost:7788';
     // private host = 'http://spring-app:7788';
-     private host = '/api';
+     private host = 'https://ragbd-4f3703925621.herokuapp.com';
 
     constructor(private http: HttpClient) {}
     // envoyerFichiers(formData: FormData,extension:String,user:Utilisateur): Observable<any> {
