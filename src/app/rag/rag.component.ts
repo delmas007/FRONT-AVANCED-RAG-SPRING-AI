@@ -49,11 +49,11 @@ export class RagComponent {
 
       // Calculer la taille totale des fichiers
       const totalSize = newFiles.reduce((sum, file) => sum + file.size, 0);
-      const maxSize = 2_000_000;  // Taille maximale en octets (2 Mo)
+      const maxSize = 1_000_000;  // Taille maximale en octets (2 Mo)
 
       if (totalSize > maxSize) {
         this.totalFileSizeExceeded = true;
-        this.errorMessage = 'Un ou plusieurs fichiers dépassent la taille maximale autorisée de 2 Mo.';
+        this.errorMessage = 'Un ou plusieurs fichiers dépassent la taille maximale autorisée de 1 Mo.';
         this.files = [];  // Réinitialiser la liste des fichiers
         this.inputLabel = 'Choisir des fichiers';
         clearTimeout(this.timeoutHandle);
@@ -115,10 +115,10 @@ export class RagComponent {
     if (this.files && this.files.length > 0) {
       // Calculer la taille totale des fichiers
       const totalSize = this.files.reduce((sum, file) => sum + file.size, 0);
-      const maxSize = 2_000_000;  // Taille maximale en octets (2 Mo)
+      const maxSize = 1_000_000;  // Taille maximale en octets (2 Mo)
 
       if (totalSize > maxSize) {
-        this.errorMessage = 'Un ou plusieurs fichiers dépassent la taille maximale autorisée de 2 Mo.';
+        this.errorMessage = 'Un ou plusieurs fichiers dépassent la taille maximale autorisée de 1 Mo.';
         clearTimeout(this.timeoutHandle);
         this.timeoutHandle = setTimeout(() => {
           return;  // Réinitialiser le loader après 30 secondes

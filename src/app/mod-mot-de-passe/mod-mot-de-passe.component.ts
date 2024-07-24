@@ -54,7 +54,7 @@ export class ModMotDePasseComponent implements OnInit{
           if (err.error && err.error.message) {
             this.errorMessage = err.error.message;
           } else {
-            this.errorMessage = 'erreur';
+            this.errorMessage = 'Erreur temporaire du serveur. Veuillez réessayer plus tard.';
           }
         })
         .finally(() => {

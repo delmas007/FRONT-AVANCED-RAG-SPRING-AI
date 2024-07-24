@@ -67,7 +67,7 @@ export class RegisterComponent implements OnInit{
           this.router.navigateByUrl(`/verification/${this.donnee.email}`)
         })
         .catch(err => {
-          this.errorMessage = err.error.message || 'Une erreur s\'est produite';
+          this.errorMessage = err.error.message || 'Erreur temporaire du serveur. Veuillez réessayer plus tard.';
           console.log(err);
         }) .finally(() => {
         this.loading = false;

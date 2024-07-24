@@ -48,7 +48,7 @@ export class MotDePasseComponent implements OnInit{
         } else {
           this.loading = false;
           console.log(err);
-          this.errorMessage = 'Mot de passe incorrecte';
+          this.errorMessage = 'Erreur temporaire du serveur. Veuillez réessayer plus tard.';
         }
       })
       .finally(() => {
