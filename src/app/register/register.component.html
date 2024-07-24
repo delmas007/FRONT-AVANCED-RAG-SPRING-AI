@@ -31,75 +31,93 @@
               <div class="row gy-3">
                 <div class="col-12">
                   <div class="form-floating">
-                    <input type="text" class="form-control" name="Username" id="username" placeholder="Nom d'utilisateur" required formControlName="username">
+                    <input type="text" class="form-control" id="username" placeholder="Nom d'utilisateur" formControlName="username">
                     <label for="username" class="form-label">Nom d'utilisateur</label>
                     <div *ngIf="formLogin.get('username')?.invalid && (formLogin.get('username')?.dirty || formLogin.get('username')?.touched)" class="text-danger">
-                      <div *ngIf="formLogin.get('username')?.errors?.['required']">
-                        Le nom d'utilisateur est requis.
+<!--                      <div *ngIf="formLogin.get('username')?.errors?.['required']">-->
+<!--                        Le nom d'utilisateur est requis.-->
+<!--                      </div>-->
+                      <div *ngIf="formLogin.get('username')?.errors?.['whitespace']">
+                        Le nom d'utilisateur ne peut pas être vide ou contenir uniquement des espaces.
                       </div>
                     </div>
                   </div>
                 </div>
                 <div class="col-12">
                   <div class="form-floating">
-                    <input type="email" class="form-control" name="email" id="email" placeholder="Email" required formControlName="email">
+                    <input type="email" class="form-control" id="email" placeholder="Email" formControlName="email">
                     <label for="email" class="form-label">Email</label>
                     <div *ngIf="formLogin.get('email')?.invalid && (formLogin.get('email')?.dirty || formLogin.get('email')?.touched)" class="text-danger">
-                      <div *ngIf="formLogin.get('email')?.errors?.['required']">
-                        L'email est requis.
-                      </div>
+<!--                      <div *ngIf="formLogin.get('email')?.errors?.['required']">-->
+<!--                        L'email est requis.-->
+<!--                      </div>-->
                       <div *ngIf="formLogin.get('email')?.errors?.['email']">
                         L'email n'est pas valide.
                       </div>
+                      <div *ngIf="formLogin.get('email')?.errors?.['whitespace']">
+                        L'email ne peut pas être vide ou contenir uniquement des espaces.
+                      </div>
                     </div>
                   </div>
                 </div>
                 <div class="col-12">
                   <div class="form-floating">
-                    <input type="text" class="form-control" name="Nom" id="nom" placeholder="Nom" required formControlName="nom">
+                    <input type="text" class="form-control" id="nom" placeholder="Nom" formControlName="nom">
                     <label for="nom" class="form-label">Nom</label>
                     <div *ngIf="formLogin.get('nom')?.invalid && (formLogin.get('nom')?.dirty || formLogin.get('nom')?.touched)" class="text-danger">
-                      <div *ngIf="formLogin.get('nom')?.errors?.['required']">
-                        Le nom est requis.
+<!--                      <div *ngIf="formLogin.get('nom')?.errors?.['required']">-->
+<!--                        Le nom est requis.-->
+<!--                      </div>-->
+                      <div *ngIf="formLogin.get('nom')?.errors?.['whitespace']">
+                        Le nom ne peut pas être vide ou contenir uniquement des espaces.
                       </div>
                     </div>
                   </div>
                 </div>
                 <div class="col-12">
                   <div class="form-floating">
-                    <input type="text" class="form-control" name="Prenom" id="prenom" placeholder="Prenom" required formControlName="prenom">
-                    <label for="prenom" class="form-label">Prenom</label>
+                    <input type="text" class="form-control" id="prenom" placeholder="Prénom" formControlName="prenom">
+                    <label for="prenom" class="form-label">Prénom</label>
                     <div *ngIf="formLogin.get('prenom')?.invalid && (formLogin.get('prenom')?.dirty || formLogin.get('prenom')?.touched)" class="text-danger">
-                      <div *ngIf="formLogin.get('prenom')?.errors?.['required']">
-                        Le prénom est requis.
+<!--                      <div *ngIf="formLogin.get('prenom')?.errors?.['required']">-->
+<!--                        Le prénom est requis.-->
+<!--                      </div>-->
+                      <div *ngIf="formLogin.get('prenom')?.errors?.['whitespace']">
+                        Le prénom ne peut pas être vide ou contenir uniquement des espaces.
                       </div>
                     </div>
                   </div>
                 </div>
                 <div class="col-12">
                   <div class="form-floating">
-                    <input type="password" class="form-control" name="password" id="password" placeholder="Mot de passe" required formControlName="password">
+                    <input type="password" class="form-control" id="password" placeholder="Mot de passe" formControlName="password">
                     <label for="password" class="form-label">Mot de passe</label>
                     <div *ngIf="formLogin.get('password')?.invalid && (formLogin.get('password')?.dirty || formLogin.get('password')?.touched)" class="text-danger">
-                      <div *ngIf="formLogin.get('password')?.errors?.['required']">
-                        Le mot de passe est requis.
-                      </div>
+<!--                      <div *ngIf="formLogin.get('password')?.errors?.['required']">-->
+<!--                        Le mot de passe est requis.-->
+<!--                      </div>-->
                       <div *ngIf="formLogin.get('password')?.errors?.['minlength']">
                         Le mot de passe doit comporter au moins 8 caractères.
                       </div>
+                      <div *ngIf="formLogin.get('password')?.errors?.['whitespace']">
+                        Le mot de passe ne peut pas être vide ou contenir uniquement des espaces.
+                      </div>
                     </div>
                   </div>
                 </div>
                 <div class="col-12">
                   <div class="form-floating">
-                    <input type="password" class="form-control" name="confirmePassword" id="confirmePassword" placeholder="Confirme mot de passe" required formControlName="confirmePassword">
+                    <input type="password" class="form-control" id="confirmePassword" placeholder="Confirme mot de passe" formControlName="confirmePassword">
                     <label for="confirmePassword" class="form-label">Confirme mot de passe</label>
                     <div *ngIf="formLogin.get('confirmePassword')?.invalid && (formLogin.get('confirmePassword')?.dirty || formLogin.get('confirmePassword')?.touched)" class="text-danger">
-                      <div *ngIf="formLogin.get('confirmePassword')?.errors?.['required']">
-                        La confirmation du mot de passe est requise.
-                      </div>
+<!--                      <div *ngIf="formLogin.get('confirmePassword')?.errors?.['required']">-->
+<!--                        La confirmation du mot de passe est requise.-->
+<!--                      </div>-->
                       <div *ngIf="formLogin.get('confirmePassword')?.errors?.['minlength']">
                         Le mot de passe doit comporter au moins 8 caractères.
+                      </div>
+                      <div *ngIf="formLogin.get('confirmePassword')?.errors?.['whitespace']">
+                        La confirmation du mot de passe ne peut pas être vide ou contenir uniquement des espaces.
                       </div>
                     </div>
                   </div>
@@ -115,6 +133,7 @@
                 </div>
               </div>
             </form>
+
 
           </div>
         </div>

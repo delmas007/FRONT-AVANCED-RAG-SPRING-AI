@@ -5,6 +5,7 @@ import {Router, RouterLink} from "@angular/router";
 import {Utilisateur} from "../Model/utilisateur";
 import {Utilisateur2} from "../Model/utilisateur2";
 import {NgIf} from "@angular/common";
+import {noWhitespaceValidator} from "./validators";
 
 @Component({
   selector: 'app-register',
@@ -37,12 +38,13 @@ export class RegisterComponent implements OnInit{
 
   ngOnInit(): void {
     this.formLogin = this.fb.group({
-      username: this.fb.control(""),
-      password: this.fb.control("", [Validators.required, Validators.minLength(8)]),
-      confirmePassword: this.fb.control("", [Validators.required, Validators.minLength(8)]),
-      email: this.fb.control("",[Validators.required, Validators.email]),
-      nom: this.fb.control(""),
-      prenom: this.fb.control(""),
+
+      username: this.fb.control("", [Validators.required, noWhitespaceValidator()]),
+      password: this.fb.control("", [Validators.required, Validators.minLength(8), noWhitespaceValidator()]),
+      confirmePassword: this.fb.control("", [Validators.required, Validators.minLength(8), noWhitespaceValidator()]),
+      email: this.fb.control("", [Validators.required, Validators.email, noWhitespaceValidator()]),
+      nom: this.fb.control("", [Validators.required, noWhitespaceValidator()]),
+      prenom: this.fb.control("", [Validators.required, noWhitespaceValidator()]),
     });
   }
 
