@@ -2,16 +2,17 @@
   <h2>Confirmer Votre Compte</h2>
   <p>Veuillez entrer le code de confirmation que nous vous avons envoyé.</p>
   <div class="code-inputs">
-    <input type="text" maxlength="1" [(ngModel)]="code[0]" (input)="moveFocus($event, 0)" [class.error]="isError" pattern="[0-9]" inputmode="numeric">
-    <input type="text" maxlength="1" [(ngModel)]="code[1]" (input)="moveFocus($event, 1)" [class.error]="isError" pattern="[0-9]" inputmode="numeric">
-    <input type="text" maxlength="1" [(ngModel)]="code[2]" (input)="moveFocus($event, 2)" [class.error]="isError" pattern="[0-9]" inputmode="numeric">
-    <input type="text" maxlength="1" [(ngModel)]="code[3]" (input)="moveFocus($event, 3)" [class.error]="isError" pattern="[0-9]" inputmode="numeric">
-    <input type="text" maxlength="1" [(ngModel)]="code[4]" (input)="moveFocus($event, 4)" [class.error]="isError" pattern="[0-9]" inputmode="numeric">
-    <input type="text" maxlength="1" [(ngModel)]="code[5]" (input)="moveFocus($event, 5)" [class.error]="isError" pattern="[0-9]" inputmode="numeric">
+    <input type="text" maxlength="1" [(ngModel)]="code[0]" (input)="moveFocus($event, 0)" (paste)="handlePaste($event)" [class.error]="isError" pattern="[0-9]" inputmode="numeric">
+    <input type="text" maxlength="1" [(ngModel)]="code[1]" (input)="moveFocus($event, 1)" (paste)="handlePaste($event)" [class.error]="isError" pattern="[0-9]" inputmode="numeric">
+    <input type="text" maxlength="1" [(ngModel)]="code[2]" (input)="moveFocus($event, 2)" (paste)="handlePaste($event)" [class.error]="isError" pattern="[0-9]" inputmode="numeric">
+    <input type="text" maxlength="1" [(ngModel)]="code[3]" (input)="moveFocus($event, 3)" (paste)="handlePaste($event)" [class.error]="isError" pattern="[0-9]" inputmode="numeric">
+    <input type="text" maxlength="1" [(ngModel)]="code[4]" (input)="moveFocus($event, 4)" (paste)="handlePaste($event)" [class.error]="isError" pattern="[0-9]" inputmode="numeric">
+    <input type="text" maxlength="1" [(ngModel)]="code[5]" (input)="moveFocus($event, 5)" (paste)="handlePaste($event)" [class.error]="isError" pattern="[0-9]" inputmode="numeric">
   </div>
   <p>Vous n'avez pas reçu votre code ?
     <a href="#" (click)="onResendClick($event)" *ngIf="!resendDisabled">Envoyez-le à nouveau</a>
     <span *ngIf="resendDisabled">Renvoi dans {{ countdownTimer }}</span>
   </p>
 </div>
+
 

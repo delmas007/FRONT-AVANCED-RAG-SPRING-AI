@@ -25,7 +25,7 @@ export class VerifyCodeComponent implements OnInit {
   email!: string ;
   code: string[] = ['', '', '', '', '', ''];
 
-  constructor(private apiService: ApiService, private http: HttpClient,private router: Router,private activatedRoute : ActivatedRoute) {}
+  constructor(private apiService: ApiService, private http: HttpClient, private router: Router, private activatedRoute: ActivatedRoute) {}
 
   ngOnInit() {
     this.startCountdown();
@@ -43,26 +43,6 @@ export class VerifyCodeComponent implements OnInit {
     }, 1000); // 1000 ms = 1 seconde
   }
 
-  // verifyCode() {
-  //   const code = this.code.join('');
-  //   this.apiService.Verification(code)
-  //     .then((response: any) => {
-  //       this.router.navigateByUrl("/connexion")
-  //     })
-  //     .catch(error => {
-  //       this.isError = true;
-  //       setTimeout(() => {
-  //         this.isError = false;
-  //         // Ajouter la classe shake aux champs d'entrée
-  //         const inputs = document.querySelectorAll('.code-inputs input');
-  //         inputs.forEach(input => input.classList.add('shake'));
-  //         // Retirer la classe shake après l'animation
-  //         setTimeout(() => {
-  //           inputs.forEach(input => input.classList.remove('shake'));
-  //         }, 400);
-  //       }, 7000);
-  //     });
-  // }
   verifyCode() {
     const code = this.code.join('');
     this.apiService.Verification(code)
@@ -77,7 +57,7 @@ export class VerifyCodeComponent implements OnInit {
         setTimeout(() => {
           this.isError = false;
           inputs.forEach(input => input.classList.remove('shake'));
-        }, 400);
+        }, 1000);
       });
   }
 
@@ -100,29 +80,6 @@ export class VerifyCodeComponent implements OnInit {
     this.resendCode();
   }
 
-
-  onModelChange(event: any, index: number) {
-    if (event && event.target && typeof event.target.value === 'string') {
-      const value = event.target.value.trim();
-      if (value.match(/^[0-9]$/) && index < this.digits.length) {
-        this.digits[index] = value;
-
-        if (index < this.digits.length - 1) {
-          const nextInput = event.target.nextElementSibling as HTMLInputElement;
-          if (nextInput) {
-            nextInput.focus();
-          }
-        } else {
-          this.verifyCode();
-        }
-      } else {
-        this.digits[index] = '';
-      }
-
-      console.log('État actuel des chiffres :', this.digits);
-    }
-  }
-
   moveFocus(event: any, index: number): void {
     const input = event.target as HTMLInputElement;
     if (!/^\d$/.test(input.value)) {
@@ -137,7 +94,17 @@ export class VerifyCodeComponent implements OnInit {
     }
   }
 
+  handlePaste(event: ClipboardEvent) {
+    event.preventDefault();
+    const clipboardData = event.clipboardData || (window as any).clipboardData;
+    const pastedData = clipboardData.getData('Text').trim();
 
-
-
+    if (/^\d{6}$/.test(pastedData)) {
+      for (let i = 0; i < this.code.length; i++) {
+        this.code[i] = pastedData[i] || '';
+      }
+      this.verifyCode();
+    }
+  }
 }
+
