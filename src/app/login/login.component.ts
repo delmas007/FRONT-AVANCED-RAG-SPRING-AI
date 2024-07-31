@@ -53,7 +53,7 @@ export class LoginComponent implements OnInit{
         if (err.error && err.error.message) {
           this.errorMessage = err.error.message;
         } else {
-          this.errorMessage = 'Mot de passe incorrecte';
+          this.errorMessage = 'Erreur temporaire du serveur. Veuillez réessayer plus tard.';
         }
       })
       .finally(() => {
