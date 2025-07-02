@@ -3,9 +3,9 @@
   <div class="container">
     <div class="row gy-4 align-items-center mt-md-5">
       <div class="col-12 col-md-6 col-xl-7">
-        <div class="d-flex justify-content-center text-bg-primary">
+        <div class="d-flex justify-content-center text-light">
           <div class="col-12 col-xl-9">
-            <hr class="border-primary-subtle mb-4">
+            <hr class=" mb-4">
             <h2 class="h1 mb-4">Bienvenue sur Notre Plateforme</h2>
             <p class="lead mb-5">Notre plateforme vous permet d'importer des fichiers PDF, Word, Excel ou PowerPoint. Une fois importé, notre système extrait automatiquement le contenu pour vous permettre de poser des questions à IA, basée sur le modèle GPT-4o. Elle génère ensuite des réponses pertinentes à partir du contexte du document. Vous pouvez également nous donner votre feedback pour améliorer continuellement notre système. Pour nous envoyer votre feedback, veuillez nous contacter à <strong><a class="h4" style="color: aliceblue;text-decoration: none;" href="mailto:feedback@delmas-gpt.tech">feedback&#64;delmas-gpt.tech</a></strong> .</p>
             <div class="text-endx">
@@ -23,7 +23,7 @@
               <div class="col-12">
                 <div class="mb-4">
                   <h3>Se connecter</h3>
-                  <p>Vous n'avez pas de compte ? <a routerLink="/inscription">Inscription</a></p>
+                  <p>Vous n'avez pas de compte ? <a routerLink="/inscription" style="color: #7257B3">Inscription</a></p>
                 </div>
               </div>
             </div>
@@ -56,7 +56,7 @@
                 </div>
                 <div class="col-12">
                   <div class="d-grid">
-                    <button class="btn btn-primary btn-lg" type="submit" [disabled]="loading">
+                    <button class="btn btn-lg"  type="submit" [disabled]="loading" style="background-color: #7257B3;color: white;">
                       <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                       {{ loading ? 'Chargement...' : 'Connexion' }}
                     </button>
@@ -68,7 +68,7 @@
             <div class="row">
               <div class="col-12">
                 <div class="d-flex gap-2 gap-md-4 flex-column flex-md-row justify-content-md-end mt-4">
-                  <a routerLink="/mot-de-passe">Mot de passe oublié</a>
+                  <a routerLink="/mot-de-passe" style="color: #7257B3;">Mot de passe oublié</a>
                 </div>
               </div>
             </div>

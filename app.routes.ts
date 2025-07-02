@@ -10,6 +10,7 @@ import {AuthenticationGuard} from './guards/authentication.guard';
 import {AuthorizationGuard} from './guards/authorization.guard';
 import {App} from './app';
 import {RagChat} from './component/rag-chat/rag-chat';
+import {Default} from './component/default/default';
 
 export const routes: Routes = [
   { path : "connexion" , component : LoginComponent},
@@ -20,7 +21,7 @@ export const routes: Routes = [
   { path: "notAuthorized", component: NotAuthorizedComponent },
   { path: "sessionExpired", component: SessionComponent },
   { path : "user" , component : App,canActivate:[AuthenticationGuard] ,children : [
-      { path : "rag" , component : RagChat,canActivate:[AuthorizationGuard]},
+      { path : "rag" , component : Default,canActivate:[AuthorizationGuard]},
     ]},
 
   { path : "" , redirectTo : "/connexion", pathMatch : "full"}

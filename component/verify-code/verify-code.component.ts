@@ -19,7 +19,7 @@ export class VerifyCodeComponent implements OnInit {
   digits: string[] = new Array(6).fill('');
   isError: boolean = false;
   resendDisabled: boolean = false;
-  countdownTimer: number = 3; // Temps en secondes
+  countdownTimer: number = 3;
   email!: string ;
   code: string[] = ['', '', '', '', '', ''];
 

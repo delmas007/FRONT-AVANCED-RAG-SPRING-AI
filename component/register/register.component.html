@@ -1,8 +1,8 @@
-<section class="bg-primary  d-flex align-items-center py-3 py-md-5 py-xl-8">
+<section class="d-flex align-items-center py-3 py-md-5 py-xl-8">
   <div class="container">
     <div class="row gy-4 align-items-center mt-md-5">
       <div class="col-12 col-md-6 col-xl-7">
-        <div class="d-flex justify-content-center text-bg-primary">
+        <div class="d-flex justify-content-center text-light">
           <div class="col-12 col-xl-9">
 <!--            <img class="img-fluid rounded mb-4" loading="lazy" [src]="'assets/logo.png'" width="245" height="80" alt="Logo">-->
             <hr class="border-primary-subtle mb-4">
@@ -24,7 +24,7 @@
               <div class="col-12">
                 <div class="mb-4">
                   <h3>S'inscrire</h3>
-                  <p>Vous avez déjà un compte ? <a routerLink="/connexion">Connexion</a></p>
+                  <p>Vous avez déjà un compte ? <a routerLink="/connexion" style="color: #7257B3" >Connexion</a></p>
                 </div>
               </div>
             </div>
@@ -125,7 +125,7 @@
                 </div>
                 <div class="col-12">
                   <div class="d-grid">
-                    <button class="btn btn-primary btn-lg" type="submit" [disabled]="formLogin.invalid || loading">
+                    <button class="btn  btn-lg" type="submit" style="background-color: #7257B3;color: white;" [disabled]="formLogin.invalid || loading">
                       <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                       {{ loading ? 'Chargement...' : 'Inscription' }}
                     </button>
@@ -134,8 +134,6 @@
                 </div>
               </div>
             </form>
-
-
           </div>
         </div>
       </div>
