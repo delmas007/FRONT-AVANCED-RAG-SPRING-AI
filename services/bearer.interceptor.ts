@@ -2,7 +2,7 @@ import { HttpInterceptorFn } from '@angular/common/http';
 
 export const bearerInterceptor: HttpInterceptorFn = (req, next) => {
 
-  const paths = ['/connexion', '/inscription/', '/activation/', 'verification', '/resendMail/','/modifierMotDePasse/','/NouveauMotDePasse/'];
+  const paths = ['/connexion', '/inscription', '/activation', 'verification', '/resendMail','/modifierMotDePasse','/NouveauMotDePasse'];
 
   if (paths.some(path => req.url.includes(path))) {
     return next(req);
