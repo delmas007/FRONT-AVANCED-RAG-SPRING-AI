@@ -72,13 +72,14 @@ export class FileUpload {
 
   uploadFiles(): void {
     if (this.selectedFiles.length === 0) return;
-
+    console.log("Uploading files:", this.selectedFiles);
     this.isUploading = true;
     this.ragService.uploadFiles(this.selectedFiles).subscribe({
       next: () => {
         this.isUploading = false;
         this.selectedFiles = [];
-        this.state.setAuthState({ fileUploaded: true }); // Mise à jour directe de l'état
+        this.state.setAuthState({ fileUploaded: true });
+        console.log('Fichiers téléchargés avec succès');
       },
       error: (error) => {
         this.isUploading = false;

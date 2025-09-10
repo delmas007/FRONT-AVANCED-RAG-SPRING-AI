@@ -9,8 +9,8 @@ import {Utilisateur} from "../component/models/utilisateur";
   providedIn: 'root'
 })
 export class RagService {
-  private readonly baseUrl = 'http://localhost:8080/api/v1/rag';
-  private readonly baseUrlAuth = 'http://localhost:8080/api/v1/auth';
+  private readonly baseUrl = '/host/api/v1/rag';
+  private readonly baseUrlAuth = '/host/api/v1/auth';
 
   constructor(private http: HttpClient) {}
 
@@ -19,7 +19,7 @@ export class RagService {
     files.forEach(file => {
       formData.append('files', file);
     });
-
+    console.log(formData.get('files'));
     return this.http.post<void>(`${this.baseUrl}/file`, formData);
   }
 
