@@ -1,0 +1,46 @@
+<div class="upload-container">
+  <div class="upload-area"
+       [class.dragover]="isDragOver"
+       (drop)="onDrop($event)"
+       (dragover)="onDragOver($event)"
+       (dragleave)="onDragLeave($event)"
+       (click)="fileInput.click()">
+    <div class="upload-content">
+      <i class="fas fa-cloud-upload-alt upload-icon"></i>
+      <h3>Glissez vos fichiers ici</h3>
+      <p>ou cliquez pour sélectionner</p>
+      <small>PDF, Word, Excel, PowerPoint acceptés</small>
+    </div>
+    <input #fileInput
+           type="file"
+           multiple
+           accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx"
+           (change)="onFileSelect($event)"
+           style="display: none;">
+  </div>
+
+  @if (selectedFiles.length > 0) {
+    <div class="file-list">
+      <h4><i class="fas fa-file-alt"></i> Fichiers sélectionnés</h4>
+      @for (file of selectedFiles; track file) {
+        <div class="file-item">
+          <span class="file-name">{{ file.name }}</span>
+          <span class="file-size">{{ formatFileSize(file.size) }}</span>
+          <button class="remove-btn" (click)="removeFile(file)">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+      }
+      <button class="upload-btn"
+              [disabled]="isUploading"
+              (click)="uploadFiles()">
+        @if (!isUploading) {
+          <i class="fas fa-upload"></i>
+        } @else {
+          <i class="fas fa-spinner fa-spin"></i>
+        }
+        {{ isUploading ? 'Téléchargement...' : 'Télécharger' }}
+      </button>
+    </div>
+  }
+</div>

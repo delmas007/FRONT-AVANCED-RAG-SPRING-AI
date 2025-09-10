@@ -1,0 +1,62 @@
+<div class="chat-container">
+  <div class="messages-container" #messagesContainer>
+    @for (message of messages$ | async; track message) {
+      <div class="message"
+           [class.user-message]="message.isUser"
+           [class.bot-message]="!message.isUser">
+        <div class="avatar">
+          <i class="fas" [class.fa-user]="message.isUser" [class.fa-robot]="!message.isUser"></i>
+        </div>
+        <div class="message-content">
+          <div class="message-text">
+            @for (part of message.parts; track part) {
+              @if (part.type === 'text') {
+                <markdown [data]="part.content"></markdown>
+              } @else if (part.type === 'image') {
+                <img [src]="part.src"
+                     alt="Image de réponse"
+                     class="response-image"
+                     (error)="onImageError($event)">
+              }
+            }
+          </div>
+
+          <div class="message-time">
+            {{ message.timestamp | date:'HH:mm' }}
+          </div>
+        </div>
+      </div>
+    }
+
+    @if (isLoading) {
+      <div class="message bot-message">
+        <div class="avatar">
+          <i class="fas fa-robot"></i>
+        </div>
+        <div class="message-content">
+          <div class="typing-indicator">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+
+  <div class="input-container">
+    <div class="input-wrapper">
+      <input type="text"
+             [(ngModel)]="currentMessage"
+             (keyup.enter)="sendMessage()"
+             [disabled]="isLoading"
+             placeholder="Posez votre question ici..."
+             class="message-input">
+      <button (click)="sendMessage()"
+              [disabled]="isLoading || !currentMessage.trim()"
+              class="send-button">
+        <i class="fas fa-paper-plane"></i>
+      </button>
+    </div>
+  </div>
+</div>

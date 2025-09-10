@@ -1,0 +1,10 @@
+<div class="app-container">
+  <header class="app-header">
+    <h1><i class="fas fa-robot"></i> RAG Assistant</h1>
+    <p>Téléchargez vos documents et posez vos questions</p>
+  </header>
+  <main class="main-content">
+    <app-file-upload *ngIf="!state.authState.fileUploaded"></app-file-upload>
+    <app-chat *ngIf="state.authState.fileUploaded"></app-chat>
+  </main>
+</div>
