@@ -72,7 +72,6 @@ export class FileUpload {
 
   uploadFiles(): void {
     if (this.selectedFiles.length === 0) return;
-    console.log("Uploading files:", this.selectedFiles);
     this.isUploading = true;
     this.ragService.uploadFiles(this.selectedFiles).subscribe({
       next: () => {

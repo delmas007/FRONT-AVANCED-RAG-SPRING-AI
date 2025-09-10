@@ -19,7 +19,6 @@ export class RagService {
     files.forEach(file => {
       formData.append('files', file);
     });
-    console.log(formData.get('files'));
     return this.http.post<void>(`${this.baseUrl}/file`, formData);
   }
 
